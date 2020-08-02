@@ -14,6 +14,21 @@ augroup END
 
 " }}}
 
+" FOLD/UNFOLD ALL {{{
+
+let s:unfold_all = 0
+function! FoldUnfodlAll()
+  if (s:unfold_all == 1)
+    execute "normal! zM"
+    let s:unfold_all = 0
+  else
+    execute "normal! zR"
+    let s:unfold_all = 1
+  endif
+endfunction
+
+" }}}
+
 "  MyNext() and MyPrev(): Movement between tabs OR buffers {{{
 
 function! MyNext()

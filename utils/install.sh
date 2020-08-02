@@ -1,38 +1,9 @@
 #!/bin/bash
 
-set -o nounset    # error when referencing undefined variable
-set -o errexit    # exit when command fails
+set -o nounset # -------------------- error when referencing undefined variable
+set -o errexit # -------------------------------------- exit when command fails
 
-installnodemac() { \
-  brew install node
-}
-
-installnodeubuntu() { \
-  sudo apt install nodejs
-  sudo apt install npm
-}
-
-installnodearch() { \
-  sudo pacman -S nodejs
-  sudo pacman -S npm
-}
-
-installnode() { \
-  echo "Installing node..."
-  [ "$(uname)" == "Darwin" ] && installnodemac
-  [  -n "$(uname -a | grep Ubuntu)" ] && installnodeubuntu
-  [ -f "/etc/arch-release" ] && installnodearch
-  [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ] && echo "Windows not currently supported"
-  sudo npm i -g neovim
-}
-
-installpiponmac() { \
-  sudo curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-  python3 get-pip.py
-  rm get-pip.py
-}
-
-installpiponubuntu() { \
+function installpip() { \
   if which pip > /dev/null; then
     echo "pip is already installed."
   else
@@ -49,139 +20,253 @@ installpiponubuntu() { \
   else
     echo "Installing pip3..."
     sudo apt-get install python3-pip -y
-    sudo pip3 install -U jedi
-    sudo pip3 install black
-    sudo pip3 install isort
-    sudo pip3 install ueberzug
-    sudo pip3 install neovim-remote
+    sudo pip3 install jedi black isort ueberzug neovim-remote pynvim
   fi
 }
 
-installpiponarch() { \
-  pacman -S python-pip
+function installAdminTools() {
+  echo "Installing admin tools"
+
+  # install lazydocker, ripgrep, fzf, universal-ctags, silversearcher-ag, fd-find...
+  which xclip > /dev/null && echo "xclip is already installed." || sudo apt-get install xclip
+  which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel
+  which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop
+  which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev
+  which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools
+  which ctags > /dev/null && echo "ctags is already installed." || sudo apt-get install ctags
+  which ruby > /dev/null && echo "ruby is already installed." || sudo apt-get install ruby-full
+  which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit
+  which lazydocker > /dev/null && echo "lazydocker is already installed." || askToInstallLazyDocker
+  which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y
+  which universal-ctags > /dev/null && echo "universal-ctags is already installed." || sudo apt install universal-ctags -y
+  which silversearcher-ag > /dev/null && echo "silversearcher-ag is already installed." || sudo apt install silversearcher-ag -y
+  which fd-find > /dev/null && echo "fd-find is already installed." || sudo apt install fd-find -y
+  which neofetch > /dev/null && echo "neofetch is already installed." || sudo apt install neofetch -y
+  which clang-format > /dev/null && echo "clang-format is already installed." || sudo apt-get install clang-format -y
+  which tree > /dev/null && echo "tree is already installed." || sudo apt install tree -y
+  which pip3 > /dev/null && echo "pip3 is already installed." || installpip
+
+  if which npm > /dev/null; then
+    echo "npm is already installed."
+  else
+    echo "Installing npm..."
+    sudo apt install npm -y
+    sudo npm install -g neovim js-beautify vtop eslint prettier eslint-config-prettier eslint-plugin-prettier
+  fi
+
+  which node > /dev/null && echo "nodejs is already installed." || sudo apt install nodejs
+
+  if [ -f /usr/bin/dfc ]; then
+    echo "dfc is already installed"
+  else
+    echo "Installing dfc..."
+    sudo apt-get install dfc
+  fi
+
+  if [ -f /usr/bin/vivid ]; then
+    echo "vivid is already installed"
+  else
+    echo "Downloading vivid0.4.0..."
+    wget "https://github.com/sharkdp/vivid/releases/download/v0.4.0/vivid_0.4.0_amd64.deb"
+    echo "Installing vivid0.4.0..."
+    sudo dpkg -i vivid_0.4.0_amd64.deb
+  fi
+
+  export LS_COLORS="$(vivid generate snazzy)"
 }
 
-installpip() { \
-  echo "Installing pip..."
-  [ "$(uname)" == "Darwin" ] && installpiponmac
-  [  -n "$(uname -a | grep Ubuntu)" ] && installpiponubuntu
-  [ -f "/etc/arch-release" ] && installpiponarch
-  [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ] && echo "Windows not currently supported"
+function installPostgresql() {
+  which psql > /dev/null && echo "postgresql is already installed." || sudo apt install postgresql postgresql-contrib -y
 }
 
-installpynvim() { \
-  echo "Installing pynvim..."
-  pip3 install pynvim
+function installFlutter() {
+  if which flutter > /dev/null; then
+    echo "flutter is already installed."
+  else
+    if [ -d ~/.flutter ]; then
+      echo "flutter is already installed.."
+    else
+      echo "Installing flutter..."
+      git clone https://github.com/flutter/flutter.git -b stable --depth 1 $HOME/.flutter
+      echo 'export PATH=$PATH:~/.flutter/bin' >> ~/.bashrc
+    fi
+  fi
+  source ~/.bashrc
+
+  if which adb > /dev/null; then
+    echo "adb are already installed."
+  else
+    echo "Installing adb..."
+    sudo apt-get install adb -y
+    sudo usermod -aG plugdev $LOGNAME
+  fi
 }
 
-installfots() { \
-  echo "Installing fonts..."
+function installOhMyZSH() {
+  echo "Installing ZSH y git-core..."
 
-  [ -d "$HOME/.fonts" ] && echo "fonts folder exists..." || mkdir -p $HOME/.fonts
-  cp $HOME/.config/nvim/fonts/* $HOME/.fonts
+  cd ~/
+  which zsh > /dev/null && echo "zsh is already installed." || sudo apt-get install zsh
+  which git > /dev/null && echo "Git is already installed." || sudo apt-get install git-core
+
+  if [ -d ~/.oh-my-zsh ]; then
+    if [ -f ~/.oh-my-zsh/themes/asf.zsh-theme ]; then
+      rm ~/.oh-my-zsh/themes/asf.zsh-theme
+    fi
+    cd ~/.oh-my-zsh && git pull;
+  else
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+  fi
+
+  if [ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then
+    cd ~/.oh-my-zsh && git pull;
+  else
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  fi
+
+  if [ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]; then
+    cd ~/.oh-my-zsh && git pull;
+  else
+    git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+  fi
+
+  if [ -f ~/.zshrc ]; then
+    rm ~/.zshrc
+  fi
+
+  if [ $SHELL == "/usr/bin/zsh" ]; then
+    echo "Skipping, your current console is already zsh..."
+  else
+    echo "Changing console to zsh..."
+    chsh -s `which zsh`
+  fi
 }
 
-installcocextensions() { \
-  # Install extensions
-  mkdir -p ~/.config/coc/extensions
-  cd ~/.config/coc/extensions
-  [ ! -f package.json ] && echo '{"dependencies":{}}'> package.json
-  # Change extension names to the extensions you need
-  sudo npm install coc-explorer coc-snippets coc-json coc-actions coc-xml coc-html coc-css coc-tsserver coc-docker coc-gocode coc-python coc-rls coc-vimtex coc-vimlsp coc-sh coc-angular coc-tslint coc-eslint coc-stylelint coc-diagnostic coc-syntax coc-dictionary coc-lists coc-tag coc-svg coc-emoji coc-github coc-calc coc-emmet coc-prettier coc-yank --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
-  cd $HOME/.config/coc/ && ln -s $HOME/.config/nvim/coc-settings.json . && cd -
+function installLazyDocker() {
+  echo "Installing lazydocker..."
+  wget https://github.com/jesseduffield/lazydocker/releases/download/v0.9/lazydocker_0.9_Linux_x86_64.tar.gz
+  tar xvzf lazydocker*.tar.gz
+  sudo install lazydocker /usr/local/bin
+  rm lazydocker*
+  rm -rf lazydocker
 }
 
-cloneconfig() { \
-  echo "Cloning Nvim DevHerles configuration"
-  git clone https://github.com/DevHerles/nvim.git ~/.config/nvim
+function askToInstallLazyDocker() {
+  echo -n "Would you like to install lazydocker now (y/n)? "
+  read answer
+  [ "$answer" != "${answer#[Yy]}" ] && installLazyDocker
 }
 
-moveoldnvim() { \
+function installDocker() {
+  if which docker > /dev/null; then
+    echo "Docker is already installed."
+  else
+    echo "Installing docker..."
+    sudo apt install docker.io
+    sudo systemctl start docker
+    sudo systemctl enable docker
+
+    if [ $(getent group docker) ]; then
+      echo "docker group exists."
+    else
+      sudo groupadd docker
+    fi
+    sudo usermod -aG docker $USER
+    newgrp docker
+    which lazydocker > /dev/null && "lazydocker is already installed" || askToInstallLazyDocker
+  fi
+  which docker-compose > /dev/null && echo "docker-compose is already installed." || sudo apt install docker-compose -y
+}
+
+function installTmux() {
+  which tmux > /dev/null && echo "tmux is already installed." || sudo apt install tmux -y
+  echo "Installing tmux plugin manager..."
+  if [ -d ~/.tmux/plugins/tpm ]; then
+    cd ~/.tmux/plugins/tpm && git pull
+  else
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  fi
+}
+
+function moveOldNvim() { \
   echo "Moving your config to nvim.old"
   mv $HOME/.config/nvim $HOME/.config/nvim.old
 }
 
-installplugins() { \
+function cloneNvimConfig() { \
+  [ -d "$HOME/.config/nvim" ] && moveOldNvim || echo "No previous nvim..."
+  echo "Cloning Nvim DevHerles configuration"
+  which nvim > /dev/null && echo "nvim is already installed..." || sudo apt install neovim -y
+  git clone https://github.com/DevHerles/nvim.git ~/.config/nvim
+}
+
+function installNvimPlugins() { \
   mv $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.tmp
   mv $HOME/.config/nvim/utils/init.vim $HOME/.config/nvim/init.vim
   echo "Installing plugins..."
   nvim --headless +PlugInstall +qall > /dev/null 2>&1
   mv $HOME/.config/nvim/init.vim $HOME/.config/nvim/utils/init.vim
   mv $HOME/.config/nvim/init.vim.tmp $HOME/.config/nvim/init.vim
+
+  # create undodir path
+  [ -d "$HOME/.tmp/undodir" ] && "undodir exists..." || mkdir -p $HOME/.tmp/undodir
+
 }
 
-asktoinstallnode() { \
-  echo "node not found"
-  echo -n "Would you like to install node now (y/n)? "
-  read answer
-  [ "$answer" != "${answer#[Yy]}" ] && installnode && installcocextensions
+function installCocExtensions() { \
+  # Install extensions
+  mkdir -p ~/.config/coc/extensions
+  cd ~/.config/coc/extensions
+  [ ! -f package.json ] && echo '{"dependencies":{}}'> package.json
+  # Change extension names to the extensions you need
+  sudo npm install coc-explorer coc-snippets coc-json coc-actions coc-xml coc-html coc-css coc-tsserver coc-docker coc-gocode coc-python coc-rls coc-vimtex coc-vimlsp coc-sh coc-angular coc-tslint coc-eslint coc-stylelint coc-diagnostic coc-syntax coc-dictionary coc-lists coc-tag coc-svg coc-emoji coc-github coc-calc coc-emmet coc-prettier coc-yank --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+  cd $HOME/.config/coc/ && ln -sf $HOME/.config/nvim/coc-settings.json . && cd -
 }
 
-asktoinstallpip() { \
-  # echo "pip not found"
-  # echo -n "Would you like to install pip now (y/n)? "
-  # read answer
-  # [ "$answer" != "${answer#[Yy]}" ] && installpip
-  echo "Please install pip3 before continuing with install"
-  exit
+function linkDotFiles() {
+  cd ~/
+
+  echo "Linking asf.zsh-theme..."
+  ln -sf ~/.config/nvim/oh-my-zsh/themes/asf.zsh-theme ~/.oh-my-zsh/themes/asf.zsh-theme
+
+  echo "Linking .gitconfig..."
+  ln -sf ~/.config/nvim/dotfiles/gitconfig ~/.gitconfig
+
+  echo "Linking .tmux.conf..."
+  ln -sf ~/.config/nvim/dotfiles/tmux.conf ~/.tmux.conf
+
+  echo "Linking .zshrc..."
+  ln -sf ~/.config/nvim/dotfiles/zshrc ~/.zshrc
+
 }
 
-installonmac() { \
-  brew install ripgrep fzf ranger
+function setupDirColors() {
+  echo "Setup dircolors..."
+  eval $( dircolors -b ~/.config/nvim/dir_colors )
 }
 
-pipinstallueberzug() { \
-  which pip3 > /dev/null && pip3 install ueberzug || echo "Not installing ueberzug pip not found"
+function installFonts() { \
+  echo "Installing fonts..."
+  [ -d "$HOME/.fonts" ] && echo "fonts folder already exists..." || mkdir -p $HOME/.fonts
+  cp $HOME/.config/nvim/fonts/* $HOME/.fonts
 }
 
-installonubuntu() { \
-  sudo apt install ripgrep fzf ranger
-  sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev
-  pip3 install ueberzug
-  pip3 install neovim-remote
+function install() {
+  echo 'Installing Nvim DevHerles'
+  installAdminTools
+  installPostgresql
+  installFlutter
+  installOhMyZSH
+  installDocker
+  installTmux
+  cloneNvimConfig
+  installNvimPlugins
+  installCocExtensions
+  linkDotFiles
+  setupDirColors
+  installFonts
+  echo "I recommend you add 'set preview_images_method ueberzug' to ~/.config/ranger/rc.conf"
 }
 
+install
 
-installonarch() { \
-  sudo pacman -S install ripgrep fzf ranger
-  which yay > /dev/null && yay -S python-ueberzug-git || pipinstallueberzug
-  pip3 install neovim-remote
-}
-
-installextrapackages() { \
-  [ "$(uname)" == "Darwin" ] && installonmac
-  [  -n "$(uname -a | grep Ubuntu)" ] && installonubuntu
-  [ -f "/etc/arch-release" ] && installonarch
-  [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ] && echo "Windows not currently supported"
-}
-
-# Welcome
-echo 'Installing Nvim DevHerles'
-
-# install pip
-which pip3 > /dev/null && echo "pip installed, moving on..." || asktoinstallpip
-
-# install node and neovim support
-which node > /dev/null && echo "node installed, moving on..." || asktoinstallnode
-
-
-# install pynvim
-pip3 list | grep pynvim > /dev/null && echo "pynvim installed, moving on..." || installpynvim
-
-# move old nvim directory if it exists
-[ -d "$HOME/.config/nvim" ] && moveoldnvim
-
-# create undodir path
-[ -d "$HOME/.tmp/undodir" ] && "undodir exists..." || mkdir -p $HOME/.tmp/undodir
-
-# clone config down
-cloneconfig
-
-# install plugins
-which nvim > /dev/null && installplugins
-
-installcocextensions
-
-installfots
-
-echo "I recommend you add 'set preview_images_method ueberzug' to ~/.config/ranger/rc.conf"

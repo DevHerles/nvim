@@ -56,6 +56,7 @@ endfunction
 
 " }}}
 
+" SWITCH COLORSCHEME {{{
 let loaded_switchcolor = 1
 
 let s:colorschemes = [ 'tokyonight-night', 'nord', 'tokyonight-storm',
@@ -127,6 +128,8 @@ function! SwitchColor(swinc)
   redraw
   execute "colorscheme"
 endfunction
+
+" }}}
 
 " {{{ change color randomly on command
 

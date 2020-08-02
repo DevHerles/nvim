@@ -13,7 +13,6 @@ augroup autoformat_settings
     autocmd FileType dart AutoFormatBuffer dartfmt
     autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
     autocmd FileType python AutoFormatBuffer yapf
-    autocmd FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
     " Alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 

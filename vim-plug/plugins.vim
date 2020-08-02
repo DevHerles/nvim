@@ -24,6 +24,8 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'tpope/vim-sleuth' " ----------------------------- Auto set indent setting
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
 " WHICK-KEY {{{
 
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }

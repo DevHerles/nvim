@@ -41,6 +41,7 @@ let g:which_key_map[';'] = [ ':Commands'                  , 'commands' ]
 let g:which_key_map['+'] = [ ':vertical resize +20'       , 'vertical+resize']
 let g:which_key_map['-'] = [ ':vertical resize -20'       , 'vertical-resize']
 let g:which_key_map['='] = [ '<C-W>='                     , 'balance windows' ]
+let g:which_key_map['a'] = [ ':call FoldUnfodlAll()'                         , 'unfold-all']
 let g:which_key_map['c'] = [ 'yy'                         , 'copy current line']
 let g:which_key_map['d'] = [ ':bd'                        , 'delete buffer']
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'explorer' ]
@@ -56,12 +57,12 @@ let g:which_key_map['q'] = [ 'q'                          , 'quit' ]
 let g:which_key_map['r'] = [ ':Rg'                        , 'search text' ]
 let g:which_key_map['S'] = [ '<Plug>(easymotion-overwin-f)' , 'easymotion-f' ]
 let g:which_key_map['s'] = [ '<Plug>(easymotion-overwin-f2)' , 'easymotion-f2' ]
-let g:which_key_map['t'] = [ 'zR'                         , 'unfold-all']
 let g:which_key_map['u'] = [ ':MundoToggle'               , 'undo']
 let g:which_key_map['v'] = [ '<C-W>v'                     , 'split right']
 let g:which_key_map['w'] = [ 'w'                          , 'write' ]
-let g:which_key_map['y'] = [ 'yaw', 'yank current word' ]
+let g:which_key_map['y'] = [ 'yaw'                        , 'yank current word' ]
 let g:which_key_map['x'] = [ 'daw'                        , 'cut word' ]
+let g:which_key_map['z'] = [':FloatermToggle'             , 'zhell']
 
 " -------------------------------------------------------------- Group mappings
 " a is for actions
@@ -209,7 +210,6 @@ let g:which_key_map.T = {
       \ 'N' : [':FloatermNew nnn'                               , 'nnn'],
       \ 'p' : [':FloatermNew python'                            , 'python'],
       \ 'r' : [':FloatermNew ranger'                            , 'ranger'],
-      \ 't' : [':FloatermToggle'                                , 'toggle'],
       \ 'y' : [':FloatermNew ytop'                              , 'ytop'],
       \ 's' : [':FloatermNew ncdu'                              , 'ncdu'],
       \ }
