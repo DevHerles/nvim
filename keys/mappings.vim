@@ -25,13 +25,6 @@ nnoremap N Nzz
 " -------------------------------------------------------------Act like D and C
 nnoremap Y y$
 
-" nnoremap <silent> <Leader>= gg=G
-
-" ----------------------------------------------------Delete the current buffer
-" nnoremap <silent> <Leader>q :bdelete<CR>
-
-" ------------------------------------Deletes all except with unwritten changes
-" nnoremap <silent><Leader>Q :bufdo! bd<CR>
 noremap <C-j> <C-w>j
 noremap <C-l> <C-w>l
 noremap <C-h> <C-w>h
@@ -40,17 +33,10 @@ nnoremap <silent> H :call MyPrev()<CR>
 
 " ------When I forgot to start vim using sudo
 "cnoremap <C-s>w execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
-
-" -------------------------------------------------------Resizing split windows
-"nnoremap ,w :call SwapSplitResizeShortcuts()<CR>
-" -------------------------------------------------------Escape for insert mode
 imap jk <Esc>
 
 " ----------------------------------------------------Firs char in current line
 map 0 ^
-
-" -------------------------------------------------------duplicate current line
-noremap <Leader>d yyp
 
 " ---------------------------------------------------------Move lines (UP/DoWN)
 nnoremap <A-j> :m .+1<CR>==
@@ -94,18 +80,6 @@ function! SwapSplitResizeShortcuts()
 endfunction
 
 highlight BadWhitespace ctermbg=red guibg=default
-
-" }}}
-
-" ACK {{{
-
-let g:ackpreview = 0
-let g:ack_autofold_results = 0
-let g:ackhighlight = 1
-
-" cnoreabbrev Ack Ack!
-" cnoreabbrev ack Ack!
-" nnoremap <Leader>a :Ack!<Space><C-R><C-W>
 
 " }}}
 

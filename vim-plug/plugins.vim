@@ -14,7 +14,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
-call plug#begin('~/.config/nvim/autoload/plugged') " -------------------- Start vim plug
+call plug#begin('~/.config/nvim/autoload/plugged') " ----------- Start vim plug
 
 Plug 'skbolton/embark'
 Plug 'google/yapf'
@@ -23,6 +23,8 @@ Plug 'google/vim-codefmt'
 Plug 'voldikss/vim-floaterm'
 
 Plug 'tpope/vim-sleuth' " ----------------------------- Auto set indent setting
+
+Plug 'moll/vim-bbye' " ---------- Allows you to do delete buffers (close files)
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
