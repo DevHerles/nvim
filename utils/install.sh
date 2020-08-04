@@ -33,9 +33,10 @@ function installAdminTools() {
   which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop -y --no-install-recommends
   which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y --no-install-recommends
   which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools -y --no-install-recommends
-  which ctags > /dev/null && echo "ctags is already installed." || sudo apt-get install ctags -y --no-install-recommends
+  which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
   which ruby > /dev/null && echo "ruby is already installed." || sudo apt-get install ruby-full -y --no-install-recommends
   which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
+  which wget > /dev/null && echo "wget is already installed." || sudo apt-get install wget -y --no-install-recommends
   which lazydocker > /dev/null && echo "lazydocker is already installed." || askToInstallLazyDocker
   which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y --no-install-recommends
   which universal-ctags > /dev/null && echo "universal-ctags is already installed." || sudo apt install universal-ctags -y --no-install-recommends
