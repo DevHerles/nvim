@@ -20,7 +20,7 @@ function installpip() { \
   else
     echo "Installing pip3..."
     sudo apt-get install python3-pip -y --no-install-recommends
-    sudo pip3 install jedi black isort ueberzug neovim-remote pynvim
+    sudo pip3 install jedi black isort neovim-remote pynvim
   fi
 }
 
