@@ -90,10 +90,8 @@ function installFlutter() {
     else
       echo "Installing flutter..."
       git clone https://github.com/flutter/flutter.git -b stable --depth 1 $HOME/.flutter
-      echo 'export PATH=$PATH:~/.flutter/bin' >> ~/.bashrc
     fi
   fi
-  source ~/.bashrc
 
   if which adb > /dev/null; then
     echo "adb are already installed."
