@@ -24,7 +24,12 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'tpope/vim-sleuth' " ----------------------------- Auto set indent setting
 
-Plug 'moll/vim-bbye' " ---------- Allows you to do delete buffers (close files)
+" CLOSE-BUFFER {{{
+
+Plug 'moll/vim-bbye' " ------ Allows you to delete current buffer (close files)
+Plug 'vim-scripts/BufOnly.vim' " --------------- Allows to delete other buffers
+
+" }}}
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
