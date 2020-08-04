@@ -19,7 +19,7 @@ function installpip() { \
     echo "pip3 is already installed."
   else
     echo "Installing pip3..."
-    sudo apt-get install python3-pip -y
+    sudo apt-get install python3-pip -y --no-install-recommends
     sudo pip3 install jedi black isort ueberzug neovim-remote pynvim
   fi
 }
@@ -28,39 +28,39 @@ function installAdminTools() {
   echo "Installing admin tools"
 
   # install lazydocker, ripgrep, fzf, universal-ctags, silversearcher-ag, fd-find...
-  which xclip > /dev/null && echo "xclip is already installed." || sudo apt-get install xclip
-  which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel
-  which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop
-  which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev
-  which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools
-  which ctags > /dev/null && echo "ctags is already installed." || sudo apt-get install ctags
-  which ruby > /dev/null && echo "ruby is already installed." || sudo apt-get install ruby-full
-  which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit
+  which xclip > /dev/null && echo "xclip is already installed." || sudo apt-get install xclip -y --no-install-recommends
+  which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel -y --no-install-recommends
+  which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop -y --no-install-recommends
+  which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y --no-install-recommends
+  which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools -y --no-install-recommends
+  which ctags > /dev/null && echo "ctags is already installed." || sudo apt-get install ctags -y --no-install-recommends
+  which ruby > /dev/null && echo "ruby is already installed." || sudo apt-get install ruby-full -y --no-install-recommends
+  which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
   which lazydocker > /dev/null && echo "lazydocker is already installed." || askToInstallLazyDocker
-  which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y
-  which universal-ctags > /dev/null && echo "universal-ctags is already installed." || sudo apt install universal-ctags -y
-  which silversearcher-ag > /dev/null && echo "silversearcher-ag is already installed." || sudo apt install silversearcher-ag -y
-  which fd-find > /dev/null && echo "fd-find is already installed." || sudo apt install fd-find -y
-  which neofetch > /dev/null && echo "neofetch is already installed." || sudo apt install neofetch -y
-  which clang-format > /dev/null && echo "clang-format is already installed." || sudo apt-get install clang-format -y
-  which tree > /dev/null && echo "tree is already installed." || sudo apt install tree -y
+  which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y --no-install-recommends
+  which universal-ctags > /dev/null && echo "universal-ctags is already installed." || sudo apt install universal-ctags -y --no-install-recommends
+  which silversearcher-ag > /dev/null && echo "silversearcher-ag is already installed." || sudo apt install silversearcher-ag -y --no-install-recommends
+  which fd-find > /dev/null && echo "fd-find is already installed." || sudo apt install fd-find -y --no-install-recommends
+  which neofetch > /dev/null && echo "neofetch is already installed." || sudo apt install neofetch -y --no-install-recommends
+  which clang-format > /dev/null && echo "clang-format is already installed." || sudo apt-get install clang-format -y --no-install-recommends
+  which tree > /dev/null && echo "tree is already installed." || sudo apt install tree -y --no-install-recommends
   which pip3 > /dev/null && echo "pip3 is already installed." || installpip
 
   if which npm > /dev/null; then
     echo "npm is already installed."
   else
     echo "Installing npm..."
-    sudo apt install npm -y
+    sudo apt install npm -y --no-install-recommends
     sudo npm install -g neovim js-beautify vtop eslint prettier eslint-config-prettier eslint-plugin-prettier
   fi
 
-  which node > /dev/null && echo "nodejs is already installed." || sudo apt install nodejs
+  which node > /dev/null && echo "nodejs is already installed." || sudo apt install nodejs -y --no-install-recommends
 
   if [ -f /usr/bin/dfc ]; then
     echo "dfc is already installed"
   else
     echo "Installing dfc..."
-    sudo apt-get install dfc
+    sudo apt-get install dfc -y --no-install-recommends
   fi
 
   if [ -f /usr/bin/vivid ]; then
@@ -76,7 +76,7 @@ function installAdminTools() {
 }
 
 function installPostgresql() {
-  which psql > /dev/null && echo "postgresql is already installed." || sudo apt install postgresql postgresql-contrib -y
+  which psql > /dev/null && echo "postgresql is already installed." || sudo apt install postgresql postgresql-contrib -y --no-install-recommends
 }
 
 function installFlutter() {
@@ -97,7 +97,7 @@ function installFlutter() {
     echo "adb are already installed."
   else
     echo "Installing adb..."
-    sudo apt-get install adb -y
+    sudo apt-get install adb -y --no-install-recommends
     sudo usermod -aG plugdev $LOGNAME
   fi
 }
@@ -106,8 +106,8 @@ function installOhMyZSH() {
   echo "Installing ZSH y git-core..."
 
   cd ~/
-  which zsh > /dev/null && echo "zsh is already installed." || sudo apt-get install zsh
-  which git > /dev/null && echo "Git is already installed." || sudo apt-get install git-core
+  which zsh > /dev/null && echo "zsh is already installed." || sudo apt-get install zsh -y --no-install-recommends
+  which git > /dev/null && echo "Git is already installed." || sudo apt-get install git-core -y --no-install-recommends
 
   if [ -d ~/.oh-my-zsh ]; then
     if [ -f ~/.oh-my-zsh/themes/asf.zsh-theme ]; then
@@ -154,7 +154,7 @@ function installLazyDocker() {
 function askToInstallLazyDocker() {
   echo -n "Would you like to install lazydocker now (y/n)? "
   read answer
-  [ "$answer" != "${answer#[Yy]}" ] && installLazyDocker
+  [ "$answer" != "${answer#[Yy0]}" ] && installLazyDocker
 }
 
 function installDocker() {
@@ -162,7 +162,7 @@ function installDocker() {
     echo "Docker is already installed."
   else
     echo "Installing docker..."
-    sudo apt install docker.io
+    sudo apt install docker.io -y --no-install-recommends
     sudo systemctl start docker
     sudo systemctl enable docker
 
@@ -175,11 +175,11 @@ function installDocker() {
     newgrp docker
     which lazydocker > /dev/null && "lazydocker is already installed" || askToInstallLazyDocker
   fi
-  which docker-compose > /dev/null && echo "docker-compose is already installed." || sudo apt install docker-compose -y
+  which docker-compose > /dev/null && echo "docker-compose is already installed." || sudo apt install docker-compose -y --no-install-recommends
 }
 
 function installTmux() {
-  which tmux > /dev/null && echo "tmux is already installed." || sudo apt install tmux -y
+  which tmux > /dev/null && echo "tmux is already installed." || sudo apt install tmux -y --no-install-recommends
   echo "Installing tmux plugin manager..."
   if [ -d ~/.tmux/plugins/tpm ]; then
     cd ~/.tmux/plugins/tpm && git pull
@@ -196,7 +196,7 @@ function moveOldNvim() { \
 function cloneNvimConfig() { \
   [ -d "$HOME/.config/nvim" ] && moveOldNvim || echo "No previous nvim..."
   echo "Cloning Nvim DevHerles configuration"
-  which nvim > /dev/null && echo "nvim is already installed..." || sudo apt install neovim -y
+  which nvim > /dev/null && echo "nvim is already installed..." || sudo apt install neovim -y --no-install-recommends
   git clone https://github.com/DevHerles/nvim.git ~/.config/nvim
 }
 
