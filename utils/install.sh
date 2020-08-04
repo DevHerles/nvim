@@ -46,6 +46,7 @@ function installAdminTools() {
   which clang-format > /dev/null && echo "clang-format is already installed." || sudo apt-get install clang-format -y --no-install-recommends
   which tree > /dev/null && echo "tree is already installed." || sudo apt install tree -y --no-install-recommends
   which pip3 > /dev/null && echo "pip3 is already installed." || installpip
+  which git > /dev/null && echo "git is already installed." || sudo apt install git -y --no-install-recommends
 
   if which npm > /dev/null; then
     echo "npm is already installed."
