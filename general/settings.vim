@@ -70,15 +70,6 @@ autocmd BufWritePost *.vim silent source $MYVIMRC " ----- autosource vim config
 
 " }}}
 
-" FILE TYPES {{{
-
-augroup language_react
-    autocmd!
-    autocmd bufnewfile,bufread *.tsx set filetype=javascriptreact
-augroup END
-
-" }}}
-
 " SYNTAX {{{
 
 syntax on " -------------------------------------------- Enable Syntax for Code
@@ -150,17 +141,6 @@ set undofile " ------------Enable persistent undo so that undo history persists
 set undolevels=100 " ----------------------------- Default is 1000 -> Too large
 set undoreload=1000 " --------------------------- Default is 10000 -> Too large
 set undodir=~/.tmp/undodir " --------------------- Default folder for undo step
-
-" }}}
-
-" FOLDING {{{
-
-augroup folding_vim
-  autocmd!
-  autocmd FileType vim          setlocal foldmethod=marker
-  autocmd FileType snippets     setlocal foldmethod=marker
-  autocmd FileType python       setlocal foldmethod=indent
-augroup END
 
 " }}}
 

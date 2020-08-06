@@ -6,14 +6,6 @@
 "          \/     \/            \/       \/                \/     \/
 " | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
 
-" COLORSSCHEME {{{
-
-let g:onedark_termcolors=256
-:silent! colorscheme tokyonight " --------------------------- Set onedark theme
-:hi Normal guibg=NONE ctermbg=NONE " ------------- Transparent background color
-
-" }}}
-
 " FZF.VIM {{{
 
 " Custom ag command to ignore files in node_modules, .git and include hidden files

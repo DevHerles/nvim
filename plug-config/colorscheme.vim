@@ -7,6 +7,7 @@
 " # | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
 
 " DEFAULT-COLORSCHEME {{{
+
 set termguicolors
 let g:tokyonight_style = 'night' " -------------------- available: night, storm
 let g:tokyonight_enable_italic = 1

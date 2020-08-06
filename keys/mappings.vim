@@ -10,12 +10,22 @@ let mapleader=" "
 " let localleader=" "
 nnoremap <Space> <Nop>
 
+" PUMPVISIBLE-NAVIGATION {{{
+
 " <TAB>: completion.
 inoremap <silent> <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Better nav for omnicomplete
 inoremap <expr> <c-j> ("\<C-n>")
 inoremap <expr> <c-k> ("\<C-p>")
+
+" }}}
+
+" REPLACE-CURRENT-WORD {{{
+
+nnoremap <F2> :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
+" }}}
 
 " WINDOW {{{
 
@@ -50,7 +60,7 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 "nnoremap <Leader>i ^i " ---Jump back to the position you were last (In), forward
 
 " -------------------------------------------------------Clear search highlight
-nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+nnoremap <silent> <F3> :<C-u>nohlsearch<CR>
 
 " -------------------------Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
