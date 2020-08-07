@@ -11,8 +11,7 @@ function installpip() { \
     curl https://bootstrap.pypa.io/get-pip.py --output get-pip.py
     sudo python2 get-pip.py
     rm get-pip.py
-    pip install --user jedi
-    pip install --user pep8
+    pip install --user jedi pep8 pynvim
   fi
 
   if which pip3 > /dev/null; then
@@ -153,9 +152,16 @@ function installLazyDocker() {
 }
 
 function askToInstallLazyDocker() {
-  echo -n "Would you like to install lazydocker now (y/n)? "
-  read answer
-  [ "$answer" != "${answer#[Yy0]}" ] && installLazyDocker
+  while true; do
+    echo -n "Would you like to install lazydocker now (Y/n)? "
+    read -s -n 1 answer  # -s: do not echo input character. -n 1: read only 1 character (separate with space)
+    case $answer in
+      [Yy]* ) installLazyDocker; break;;
+      "" ) installLazyDocker; break;;
+      [Nn]* ) exit;;
+      * ) echo ""; echo "Please answer [Y]es or [n]o.";;
+    esac
+  done
 }
 
 function installDocker() {
