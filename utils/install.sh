@@ -31,6 +31,7 @@ function installAdminTools() {
   which xclip > /dev/null && echo "xclip is already installed." || sudo apt-get install xclip -y --no-install-recommends
   which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel -y --no-install-recommends
   which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop -y --no-install-recommends
+  which gcc > /dev/null && echo "gcc is already installed." || sudo apt-get install gcc -y --no-install-recommends
   which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y --no-install-recommends
   which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools -y --no-install-recommends
   which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
