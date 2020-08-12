@@ -29,6 +29,8 @@ endif
 :set guioptions-=r " ----------------------------- Remove right-hand scroll bar
 :set guioptions-=L " ------------------------------ Remove left-hand scroll bar
 
+set winbl=10 " ----------------- Set floating window to be slightly transparent
+
 " }}}
 
 " DISPLAY {{{
@@ -126,6 +128,14 @@ set smartindent
 
 set hlsearch " ---------------------------------------- Highlight search result
 set incsearch " ---------------------------------------- Allow Insert higtlight
+set ignorecase " ----------------------------------- ignore case when searching
+
+" ------------------------ if the search string has an upper case letter in it,
+" ------------------------------------------- the search will be case sensitive
+set smartcase
+
+" ---------- Automatically re-read file if a change was detected outside of vim
+set autoread
 
 " }}}
 
