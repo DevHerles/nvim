@@ -10,6 +10,9 @@ let mapleader=" "
 " let localleader=" "
 nnoremap <Space> <Nop>
 
+noremap , <PageDown>
+noremap . <PageUp>
+
 " PUMPVISIBLE-NAVIGATION {{{
 
 " <TAB>: completion.
