@@ -217,7 +217,7 @@ function installNvimPlugins() { \
   mv $HOME/.config/nvim/init.vim.tmp $HOME/.config/nvim/init.vim
 
   # create undodir path
-  [ -d "$HOME/.tmp/undodir" ] && "undodir exists..." || mkdir -p $HOME/.tmp/undodir
+  [ -d "$HOME/.tmp/undodir" ] && echo "undodir exists..." || mkdir -p $HOME/.tmp/undodir
 
 }
 
