@@ -106,7 +106,7 @@ autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 typeset -ga sources
-sources+="$HOME/.conf/nvim/oh-my-zsh/aliases.zsh"
+sources+="$HOME/.config/nvim/oh-my-zsh/aliases.zsh"
 
 # try to include all sources
 foreach file (`echo $sources`)
