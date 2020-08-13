@@ -54,7 +54,7 @@ function installAdminTools() {
   else
     echo "Installing npm..."
     sudo apt install npm -y --no-install-recommends
-    sudo npm install -g neovim js-beautify vtop eslint prettier eslint-config-prettier eslint-plugin-prettier
+    sudo npm install -g neovim js-beautify vtop eslint prettier eslint-config-prettier eslint-plugin-prettier sql-lint
   fi
 
   which node > /dev/null && echo "nodejs is already installed." || sudo apt install nodejs -y --no-install-recommends
