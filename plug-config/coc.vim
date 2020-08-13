@@ -36,6 +36,7 @@ if match(&rtp, 'coc.nvim') >= 0
         \ 'coc-eslint',
         \ 'coc-stylelint',
         \ 'coc-diagnostic',
+        \ 'coc-markdownlint',
         \ ]
 
     let s:utils = [

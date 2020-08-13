@@ -22,6 +22,19 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'voldikss/vim-floaterm'
 
+" MARKDOWN {{{
+
+Plug 'tpope/vim-markdown' " ------------------------ Vim Markdown runtime files
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" }}}
+
+" PSQL {{{
+
+Plug 'lifepillar/pgsql.vim'
+
+" }}}
+
 Plug 'tpope/vim-sleuth' " ----------------------------- Auto set indent setting
 
 " CLOSE-BUFFER {{{
@@ -30,8 +43,6 @@ Plug 'moll/vim-bbye' " ------ Allows you to delete current buffer (close files)
 Plug 'vim-scripts/BufOnly.vim' " --------------- Allows to delete other buffers
 
 " }}}
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " WHICK-KEY {{{
 
