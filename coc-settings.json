@@ -33,6 +33,19 @@
   "suggest.echodocSupport": true,
   "diagnostic.virtualText": true,
 
+  // diagnostic-languageserver
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "email": "languagetool",
+    "markdown": ["write-good", "markdownlint"],
+    "sh": "shellcheck",
+    "php": ["phpstan", "psalm"]
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "dart": "dartfmt",
+    "sh": "shfmt"
+  },
+
   // diagnostic
   "diagnostic.errorSign": " ",
   "diagnostic.warningSign": " ",
