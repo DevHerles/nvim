@@ -10,7 +10,7 @@
 
 augroup spellcheck
   autocmd!
-  autocmd BufRead,BufNewFile *.md setlocal :set spell
+  autocmd BufRead,BufNewFile *.md setlocal spell
 augroup END
 
 " }}}
