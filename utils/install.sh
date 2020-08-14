@@ -228,7 +228,12 @@ function installCocExtensions() { \
   cd ~/.config/coc/extensions
   [ ! -f package.json ] && echo '{"dependencies":{}}'> package.json
   # Change extension names to the extensions you need
-  sudo npm install coc-markdownlint coc-explorer coc-snippets coc-json coc-actions coc-xml coc-html coc-css coc-tsserver coc-docker coc-gocode coc-python coc-rls coc-vimtex coc-vimlsp coc-sh coc-angular coc-tslint coc-eslint coc-stylelint coc-diagnostic coc-syntax coc-dictionary coc-lists coc-tag coc-svg coc-emoji coc-github coc-calc coc-emmet coc-prettier coc-yank --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
+  sudo npm install coc-markdownlint coc-explorer coc-snippets coc-json \
+    coc-actions coc-xml coc-html coc-css coc-tsserver coc-docker coc-gocode \
+    coc-python coc-rls coc-vimtex coc-vimlsp coc-sh coc-angular coc-tslint \
+    coc-eslint coc-stylelint coc-diagnostic coc-syntax coc-dictionary \
+    coc-lists coc-tag coc-svg coc-emoji coc-github coc-calc coc-emmet \
+    coc-prettier coc-yank --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
   cd $HOME/.config/coc/ && ln -sf $HOME/.config/nvim/coc-settings.json . && cd -
 }
 

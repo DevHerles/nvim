@@ -10,8 +10,17 @@ let mapleader=" "
 " let localleader=" "
 nnoremap <Space> <Nop>
 
-noremap , <PageDown>
-noremap ; <PageUp>
+" EASYMOTION {{{
+
+nmap <silent>s <Plug>(easymotion-overwin-f2)
+
+" }}}
+
+" MUNDO {{{
+
+nmap <silent>U :MundoToggle<CR>
+
+" }}}
 
 " PUMPVISIBLE-NAVIGATION {{{
 
@@ -31,6 +40,9 @@ nnoremap <F2> :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " }}}
 
 " WINDOW {{{
+
+noremap , <PageDown>
+noremap ; <PageUp>
 
 nnoremap n nzz
 nnoremap N Nzz
