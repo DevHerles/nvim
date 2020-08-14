@@ -27,7 +27,6 @@ autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
-
 " ------------------------------------------------------------- Single mappings
 let g:which_key_map['/'] = [ ':call Comment()'            , 'comment' ]
 let g:which_key_map['0'] = [ ':source $MYVIMRC'           , 'reload init.vim' ]
@@ -37,17 +36,17 @@ let g:which_key_map['3'] = [ ':diffget //3'               , 'git theirs' ]
 let g:which_key_map['4'] = [ ':CocCommand flutter.emulators' , 'flutter emuls' ]
 let g:which_key_map['5'] = [ ':CocCommand flutter.run'    , 'flutter run' ]
 let g:which_key_map['.'] = [ '<Plug>(coc-codeaction)'     , 'coc-codeaction' ]
-let g:which_key_map[','] = [ '<Plug>(GitGutterNextHunk)'  , 'git next hunk']
-let g:which_key_map['<'] = [ '<Plug>(GitGutterPrevHunk)'  , 'git prev hunk']
+let g:which_key_map[','] = [ '<Plug>(GitGutterNextHunk)'  , 'git next hunk' ]
+let g:which_key_map['<'] = [ '<Plug>(GitGutterPrevHunk)'  , 'git prev hunk' ]
 let g:which_key_map['$'] = [ ':e $MYVIMRC'                , 'open init.vim' ]
 let g:which_key_map[';'] = [ ':Commands'                  , 'commands' ]
-let g:which_key_map['+'] = [ ':vertical resize +20'       , 'vertical+resize']
-let g:which_key_map['-'] = [ ':vertical resize -20'       , 'vertical-resize']
+let g:which_key_map['+'] = [ ':vertical resize +20'       , 'vertical+resize' ]
+let g:which_key_map['-'] = [ ':vertical resize -20'       , 'vertical-resize' ]
 let g:which_key_map['='] = [ '<C-W>='                     , 'balance windows' ]
 let g:which_key_map['a'] = [ ':call FoldUnfodlAll()'      , 'unfold-all' ]
-let g:which_key_map['c'] = [ 'yy'                         , 'copy current line']
-let g:which_key_map['d'] = [ ':Bdelete'                   , 'delete buffer']
-let g:which_key_map['D'] = [ ':Bonly'                     , 'delete other buffs']
+let g:which_key_map['c'] = [ ':call ConcealUnconceal()'   , 'counceal' ]
+let g:which_key_map['d'] = [ ':Bdelete'                   , 'delete buffer' ]
+let g:which_key_map['D'] = [ ':Bonly'                     , 'delete other buffs' ]
 let g:which_key_map['e'] = [ ':CocCommand explorer'       , 'explorer' ]
 let g:which_key_map['f'] = [ ':Files'                     , 'search files' ]
 let g:which_key_map['g'] = [':FloatermNew lazygit'        , 'lazygit' ]

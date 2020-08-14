@@ -14,6 +14,22 @@ augroup END
 
 " }}}
 
+" CONCEAL/UNCONCEAL {{{
+
+let s:conceal = 0
+function! ConcealUnconceal()
+  echo "hehehehhe"
+  if (s:conceal == 1)
+    execute ":set conceallevel=2"
+    let s:conceal = 0
+  else
+    execute ":set conceallevel=0"
+    let s:conceal = 1
+  endif
+endfunction
+
+" }}}
+
 " FOLD/UNFOLD ALL {{{
 
 let s:unfold_all = 0
