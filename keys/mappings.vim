@@ -11,7 +11,7 @@ let mapleader=" "
 nnoremap <Space> <Nop>
 
 noremap , <PageDown>
-noremap . <PageUp>
+noremap ; <PageUp>
 
 " PUMPVISIBLE-NAVIGATION {{{
 
