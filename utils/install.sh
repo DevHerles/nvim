@@ -27,6 +27,7 @@ function installAdminTools() {
   echo "Installing admin tools"
 
   # install lazydocker, ripgrep, fzf, universal-ctags, silversearcher-ag, fd-find...
+  which colorpicker-app > /dev/null && echo "colorpicker-app is already installed." || sudo snap install colorpicker-app
   which flameshot > /dev/null && echo "flameshot is already installed." || sudo apt-get install flameshot -y --no-install-recommends
   which xclip > /dev/null && echo "xclip is already installed." || sudo apt-get install xclip -y --no-install-recommends
   which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel -y --no-install-recommends
