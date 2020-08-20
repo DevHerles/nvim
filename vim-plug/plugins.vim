@@ -22,6 +22,18 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'voldikss/vim-floaterm'
 
+" LIMELIGTH {{{
+
+Plug 'junegunn/limelight.vim'
+
+" }}}
+
+" GOYO {{{
+
+Plug 'junegunn/goyo.vim'
+
+" }}}
+
 " MARKDOWN {{{
 
 Plug 'tpope/vim-markdown' " ------------------------ Vim Markdown runtime files

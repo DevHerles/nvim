@@ -17,7 +17,6 @@ source $HOME/.config/nvim/general/spell.vim " ------------------- Spell configs
 source $HOME/.config/nvim/keys/mappings.vim " ---------------- WhichKey configs
 source $HOME/.config/nvim/keys/which_key.vim " --------------- WhichKey configs
 
-source $HOME/.config/nvim/themes/airline.vim " --------- Airline theme settings
 source $HOME/.config/nvim/plug-config/plugins.vim " ---------- Pluggins configs
 source $HOME/.config/nvim/plug-config/coc.vim " ------------------- Coc configs
 source $HOME/.config/nvim/plug-config/autoformat.vim " ----- CODEFoRMAT configs
@@ -27,7 +26,9 @@ source $HOME/.config/nvim/plug-config/sneak.vim " --------------- Sneak configs
 source $HOME/.config/nvim/plug-config/gitgutter.vim " ------- GitGutter configs
 source $HOME/.config/nvim/plug-config/rnvimr.vim " -----Rnvimr (Ranger) configs
 source $HOME/.config/nvim/plug-config/vim-commentary.vim " vim-commentary confs
-source $HOME/.config/nvim/plug-config/colorscheme.vim " ---- Random Colorscheme
+source $HOME/.config/nvim/plug-config/goyo-limelight.vim " --- Distraction free
+source $HOME/.config/nvim/themes/airline.vim " --------- Airline theme settings
+source $HOME/.config/nvim/themes/colorscheme.vim " ---- Random Colorscheme
 luafile $HOME/.config/nvim/lua/plug-colorizer.lua
 
 " }}}
