@@ -206,7 +206,7 @@ function cloneNvimConfig() { \
   [ -d "$HOME/.config/nvim" ] && moveOldNvim || echo "No previous nvim..."
   echo "Cloning Nvim DevHerles configuration"
   which nvim > /dev/null && echo "nvim is already installed..." || sudo apt install neovim -y --no-install-recommends
-  git clone git@github.com:DevHerles/nvim.git ~/.config/nvim
+  git clone https://github.com/DevHerles/nvim.git ~/.config/nvim
 }
 
 function installNvimPlugins() { \
