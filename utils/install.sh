@@ -19,7 +19,7 @@ function installpip() { \
   else
     echo "Installing pip3..."
     sudo apt-get install python3-pip -y --no-install-recommends
-    sudo pip3 install jedi black isort neovim-remote pynvim
+    sudo pip3 install jedi black isort neovim-remote pynvim pgcli
   fi
 }
 
@@ -33,7 +33,7 @@ function installAdminTools() {
   which xsel > /dev/null && echo "xsel is already installed." || sudo apt-get install xsel -y --no-install-recommends
   which htop > /dev/null && echo "htop is already installed." || sudo apt-get install htop -y --no-install-recommends
   which gcc > /dev/null && echo "gcc is already installed." || sudo apt-get install gcc -y --no-install-recommends
-  which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y --no-install-recommends
+  which ranger > /dev/null && echo "ranger is already installed." || sudo apt-get install ranger libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev python3-psycopg2 -y --no-install-recommends
   which netstat > /dev/null && echo "net-tools are already installed." || sudo apt-get install net-tools -y --no-install-recommends
   which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
   which ruby > /dev/null && echo "ruby is already installed." || sudo apt-get install ruby-full -y --no-install-recommends
