@@ -13,9 +13,9 @@ snippet odoo "Complete Odoo template"
 <odoo>
 	<data>
 
-		<record id="${1:module_name}_${2:model}_${3:name}_view_form" model="ir.ui.view">
-			<field name="name">$1.$2.$3.form</field>
-			<field name="model">$1.$2.$3</field>
+		<record id="${1:model}_${2:name}_view_form" model="ir.ui.view">
+			<field name="name">$1.$2.form</field>
+			<field name="model">$1.$2</field>
 			<field name="type">form</field>
 			<field name="priority" eval="8"/>
 			<field name="arch" type="xml">
@@ -26,29 +26,14 @@ snippet odoo "Complete Odoo template"
 						<field name="state" widget="statusbar"/>
 					</header>
 					<sheet>
-						<table class="table table-condensed" style="border:none;">
-							<tbody>
-								<tr>
-									<div class="oe_left" style="width: 500px;">
-										<div class="oe_title">
-											<label for="name" class="oe_edit_only"/>
-											<h1>
-												<field name="name" class="oe_inline" required="1"/>
-											</h1>
-										</div>
-									</div>
-								</tr>
-							</tbody>
-							<notebook colspan="4">
-								<page>
-									<group>
-										<group>
-											<field name="name"/>
-										</group>
-									</group>
-								</page>
-							</notebook>
-						</table>
+						<group>
+							<group>
+								<field name="code" />
+							</group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
 					</sheet>
 					<div class="oe_chatter">
 						<field name="message_follower_ids" widget="mail_followers"/>
@@ -58,9 +43,9 @@ snippet odoo "Complete Odoo template"
 			</field>
 		</record>
 
-		<record id="$1_$2_$3_tree" model="ir.ui.view">
-			<field name="name">$1.$2.$3.tree</field>
-			<field name="model">$1.$2.$3</field>
+		<record id="$1_$2_tree" model="ir.ui.view">
+			<field name="name">$1.$2.tree</field>
+			<field name="model">$1.$2</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree>
@@ -69,9 +54,9 @@ snippet odoo "Complete Odoo template"
 			</field>
 		</record>
 
-		<record id="$1_$2_$3_search" model="ir.ui.view">
-			<field name="name">$1.$2.$3.search</field>
-			<field name="model">$1.$2.$3</field>
+		<record id="$1_$2_search" model="ir.ui.view">
+			<field name="name">$1.$2.search</field>
+			<field name="model">$1.$2</field>
 			<field name="arch" type="xml">
 				<search string="Buscar por...">
 					<field name="name"/>
@@ -82,44 +67,51 @@ snippet odoo "Complete Odoo template"
 			</field>
 		</record>
 
-		<record id="$1_$2_$3_action" model="ir.actions.act_window">
-			<field name="name">$1.$2.$3.action</field>
-			<field name="res_model">$1.$2.$3</field>
+		<record id="$1_$2_action" model="ir.actions.act_window">
+			<field name="name">$3</field>
+			<field name="res_model">$1.$2</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
 		<menuitem
-			id="$1_$2_menu_root"
-			name="${4:Root Menu}"
+			id="$1_$2_menu"
+			name="${3:Menú principal}"
+			parent="menu_$4_root"
+			action="$1_$2_action"
+			sequence="1"
+			groups="group_$1_$2_admin,group_$1_$2_user"/>
+
+		<!-- init $4_views.xml -->
+		<menuitem
+			id="menu_$4_root"
+			name="$4"
 			web_icon="$1,static/description/icon_$1_$2.png"
 			sequence="1"
-			groups="$1_$2_group_admin"/>
-
-		<menuitem
-			id="$1_$2_$3_menu"
-			name="${5:Main Menu}"
-			parent="$1_$2_menu_root"
-			action="$1_$2_$3_action"
-			sequence="1"
-			groups="$1_$2_group_admin"/>
+			groups="group_$1_$2_admin,group_$1_$2_user"/>
+		<!-- end $4_views.xml -->
 
 		<!-- init $1_$2_security.xml -->
-		<record id="$1_$2_category" model="ir.module.category">
+		<record id="${4:module}_category" model="ir.module.category">
 			<field name="name">$4</field>
-			<field name="description">Gestión de accesos para $4</field>
-			<field name="sequence">406</field>
+			<field name="description">Gestión de accesos para $3</field>
+			<field name="sequence">1</field>
 		</record>
 
-		<record id="$1_$2_group_admin" model="res.groups">
-			<field name="name">Administrador</field>
-			<field name="category_id" ref="$1_$2.$1_$2_category"/>
+		<record id="group_$1_$2_admin" model="res.groups">
+			<field name="name">$3 administrador</field>
+			<field name="category_id" ref="$4_category"/>
 		</record>
 
-		<record id="$1_$2_group_user" model="res.groups">
-			<field name="name">Usuario</field>
-			<field name="category_id" ref="$1_$2.$1_$2_category"/>
+		<record id="group_$1_$2_user" model="res.groups">
+			<field name="name">$3 usuario</field>
+			<field name="category_id" ref="$4_category"/>
 		</record>
 		<!-- end $1_$2_security.xml -->
+
+		<!-- start ir.model.access.csv -->
+		access_$4_$1_$2,$4.$1.$2,model_$1_$2,group_$1_$2_admin,1,1,1,1
+		access_$4_$1_$2,$4.$1.$2,model_$1_$2,group_$1_$2_user,1,0,0,0
+		<!-- end ir.model.access.csv -->
 	</data>
 </odoo>
 endsnippet
@@ -132,43 +124,41 @@ snippet mroot "my_snippets"
 endsnippet
 
 snippet menuitem "Odoo root menuitem, menuitem and action"
-<record id="${1:module_name}_${2:model}_${3:name}_action" model="ir.actions.act_window">
-	<field name="name">$1.$2.$3.action</field>
-	<field name="res_model">$1.$2.$3</field>
+<record id="${1:model}_${2:name}_action" model="ir.actions.act_window">
+	<field name="name">${3:Nombre del menú}</field>
+	<field name="res_model">$1.$2</field>
 	<field name="view_mode">tree,form</field>
 </record>
 
 <menuitem
-	id="$1_menu_root"
-	name="${4:Root Menu}"
-	web_icon="$1,static/description/icon_$1.png"
+	id="menu_${4:module}_root"
+	name="${5:Root Menu}"
+	web_icon="$4,static/description/icon.png"
 	sequence="1"
-	groups="$1_group_admin"/>
+	groups="group_$1_$2_admin,group_$1_$2_user"/>
 
 <menuitem
-	id="$1_$2_$3_menu"
-	name="${5:Main Menu}"
-	parent="$1_menu_root"
-	action="$1_$2_$3_action"
+	id="$1_$2_menu"
+	name="$5 - sub menu}"
+	parent="menu_$4_root"
+	action="$1_$2_action"
 	sequence="1"
-	groups="$1_group_admin"/>
+	groups="group_$1_$2_admin,group_$1_$2_user"/>
 endsnippet
 
 snippet odoo_record_cateory "Odoo security category"
-<record id="${1:module_name}_category" model="ir.module.category">
+<record id="${1:module}_category" model="ir.module.category">
 	<field name="name">${2:Module name category}</field>
-	<field name="description">${3:Access level for} $2</field>
-	<field name="sequence">${4:999}</field>
+	<field name="description">Manage yours $2:Access level for</field>
+	<field name="sequence">9</field>
 </record>
 endsnippet
 
 snippet odoo_odoo_record_action "Odoo action record"
-<record id="${1:module_name}_${2:model}_${3:name}_action" model="ir.actions.act_window">
-	<field name="name">$1.$2.$3.action</field>
-	<field name="res_model">$1.$2.$3</field>
-	<field name="view_type">form</field>
-	<field name="view_mode">form</field>
-	<field name="target">new</field>
+<record id="${1:model}_${2:name}_action" model="ir.actions.act_window">
+	<field name="name">${3:Nombre del menú}</field>
+	<field name="res_model">$1.$2</field>
+	<field name="view_mode">tree,form</field>
 </record>
 endsnippet
 
@@ -186,76 +176,13 @@ snippet odoo_record_calendar "Odoo calendar view"
 </record>
 endsnippet
 
-snippet odoo_wizard "Odoo wizard template"
-<?xml version="1.0" encoding="utf-8"?>
-
-<odoo>
-	<data>
-		<record id="$1_$2_$3_wizard_action" model="ir.actions.act_window">
-			<field name="name">${6:Wizard form title}</field>
-			<field name="res_model">$1.$2.$3.wizard</field>
-			<field name="view_type">form</field>
-			<field name="view_mode">form</field>
-			<field name="target">new</field>
-		</record>
-
-		<menuitem
-			id="${1:oeh}_${2:medical}_${3:inpatient}_menu"
-			name="${4:Wizards}"
-			parent="${5:parent_menu}"
-			sequence="30"/>
-
-		<menuitem
-			id="$1_$2_$3_wizard_menu"
-			name="$6"
-			action="$1_$2_$3_wizard_action"
-			parent="$1_$2_$3_menu"
-			sequence="30"/>
-
-		<record id="$1_$2_$3_wizard_view" model="ir.ui.view">
-			<field name="name">$1.$2.$3.wizard.form</field>
-			<field name="model">$1.$2.$3.wizard</field>
-			<field name="arch" type="xml">
-				<form>
-					<group>
-						<group>
-							<field name="date_start"/>
-						</group>
-						<group>
-							<field name="date_end"/>
-						</group>
-					</group>
-					<footer>
-						<button name="apply" confirm="¿Seguro de aplicar los cambios?" type="object" string="Aplicar" class="oe_highlight"/> o
-						<button name="cancel" string="Cancel" special="cancel" class="oe_link"/>
-					</footer>
-				</form>
-			</field>
-		</record>
-	</data>
-</odoo>
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models
-
-
-class $2$3Wizard(models.TransientModel):
-	_name = '$1.$2.$3.wizard'
-
-	date_start = fields.Date('Fecha de inicio', required=True)
-	date_end = fields.Date('Fecha fin', required=True)
-
-	@api.multi
-	def apply(self):
-		return True
-endsnippet
-
 snippet odoo_report "Odoo report template"
 <?xml version="1.0" encoding="utf-8"?>
-
+<!-- HerlesINC -->
+<!-- start /$1_$2/reports/$3_report_wizard.xml -->
 <odoo>
 	<data>
-		<!-- start /$1_$2/reports/$3_report_wizard.xml -->
-		<template id="$2_report_template">
+		<template id="$1_$2_$3_report_template">
 			<t t-call="report.html_container">
 				<t t-foreach="docs" t-as="doc">
 					<t t-foreach="doc._get_content" t-as="content">
@@ -305,8 +232,13 @@ snippet odoo_report "Odoo report template"
 				</tbody>
 			</table>
 		</template>
-		<!-- end /$1_$2/reports/$3_report_wizard.xml -->
+	</data>
+</odoo>
+<!-- end /$1_$2/reports/$3_report_wizard.xml -->
 
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
 		<record id="$1_$2_$3_paperformat" model="report.paperformat">
 			<field name="name">$1.$2.$3.paperformat</field>
 			<field name="default" eval="True"/>
@@ -321,13 +253,13 @@ snippet odoo_report "Odoo report template"
 			<field name="dpi">90</field>
 		</record>
 
-		<report id="$7_report_wizard"
+		<report id="$3_report_wizard"
 			model="$1.$2.$3.report.wizard"
 			string="Reporte (PDF)"
 			report_type="qweb-pdf"
 			paperformat_id="$1_$2_$3_paperformat"
-			name="$1_$2.$2_report_template"
-			file="$1_$2.$2_report_template"
+			name="$1_$2.$1_$2_$3_report_template"
+			file="$1_$2.$1_$2_$3_report_template"
 		/>
 
 		<record id="$1_$2_$3_report_wizard_action" model="ir.actions.act_window">
@@ -341,14 +273,20 @@ snippet odoo_report "Odoo report template"
 		<menuitem
 			id="${1:oeh}_${2:medical}_${3:inpatient}_menu"
 			name="${4:Reports}"
-			parent="${5:parent_menu}"
+			parent="$1_$2_menu_root"
+			sequence="30"/>
+
+		<menuitem
+			id="$1_$2_report_menu"
+			name="$4 sub menu"
+			parent="$1_$2_$3_menu"
 			sequence="30"/>
 
 		<menuitem
 			id="$1_$2_$3_report_wizard_menu"
 			name="$6"
 			action="$1_$2_$3_report_wizard_action"
-			parent="$1_$2_$3_menu"
+			parent="$1_$2_report_menu"
 			sequence="30"/>
 
 		<record id="$1_$2_$3_report_wizard_view" model="ir.ui.view">
@@ -366,7 +304,7 @@ snippet odoo_report "Odoo report template"
 						</group>
 					</group>
 					<footer>
-						<button name="%($7_report_wizard)d" type="action" string="Descargar" class="oe_highlight"/> o
+						<button name="%($3_report_wizard)d" type="action" string="Descargar" class="oe_highlight"/> o
 						<button name="cancel" string="Cancel" special="cancel" class="oe_link"/>
 					</footer>
 				</form>
@@ -374,41 +312,106 @@ snippet odoo_report "Odoo report template"
 		</record>
 	</data>
 </odoo>
+
+#<!-- start /$1_$2/wizards/$1_$2_$3_report.py -->
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models
+from datetime import datetime, timedelta
+
+
+class $1Report(models.AbstractModel):
+	_name = 'report.$2_$3.$4_report'
+
+	@api.model
+	def render_html(self, docids, data=None):
+		record = self.env['$2.$3.$4.report.wizard'].browse(docids)
+		content = record._get_content()
+
+		docargs = {
+			'doc_ids': docids,
+			'doc_model': '$2.$3.$4.report.wizard',
+			'docs': record,
+			'content': content or {}
+		}
+		return self.env['report'].render('report.$2_$3.$4_report', docargs)
+
+FIRST_TYPE = '01'
+SELECTION_REPORT_TYPES = [
+	(FIRST_TYPE, 'First report'),
+]
+# UPPER AND LOWER SELECTED WORDS
+# ~    : Changes the case of current character
+# guu  : Change current line from upper to lower.
+# gUU  : Change current LINE from lower to upper.
+# guw  : Change to end of current WORD from upper to lower.
+# guaw : Change all of current WORD to lower.
+# gUw  : Change to end of current WORD from lower to upper.
+# gUaw : Change all of current WORD to upper.
+# g~~  : Invert case to entire line
+# g~w  : Invert case to current WORD
+# guG  : Change to lowercase until the end of document.
+
+class $3ReportWizard(models.TransientModel):
+	_name = '$1.$2.$3.report.wizard'
+
+	date_start = fields.Date('Fecha de inicio', required=True)
+	date_end = fields.Date('Fecha fin', required=True)
+	report_type = fields.Selection(SELECTION_REPORT_TYPES, 'Tipo de reportes', required=True)
+
+	@api.model
+	def default_get(self, fields_list):
+		res = super($3ReportWizard, self).default_get(fields_list)
+		today = fields.Date.from_string(fields.Date.context_today(self))
+		res.update({
+			'date_start': str(today.replace(day=1)),
+			'date_end': str(today)
+		})
+		return res
+
+	@property
+	def _get_content(self):
+		return self._build_report_$3()
+
+	@staticmethod
+	def _get_current_datetime(ddatetime=False):
+		datetime_format = '%Y-%m-%d %H:%M:%S'
+		start_datetime = datetime.strptime(ddatetime, datetime_format) if ddatetime else datetime.now()
+		return (start_datetime - timedelta(hours=5)).strftime(datetime_format)
+
+	def _real_datetime(self, ddatetime):
+		return self._get_current_datetime(ddatetime) if ddatetime else ''
+
+	def _build_report_$3(self, domain=[], ttype=[]):
+		domain = [
+			('date_invoice', '>=', self.date_start),
+			('date_invoice', '<=', self.date_end),
+			('type', 'in', ttype or ['out_invoice']),
+			('state', 'in', domain or ['open', 'paid']),
+		]
+
+		records = self.env['account.invoice'].search(domain).filtered(lambda record: record).mapped(lambda record: {
+			'id': record.id,
+			'name': record.name,
+			'total': record.total
+		})
+
+		return {
+			'rows': records,
+			'total': sum(inv.get('total') for inv in records),
+			'report_name': dict(self._fields['report_type'].selection).get(self.report_type).upper(),
+			'report_type': self.report_type,
+			'print_datetime': self._get_current_datetime(),
+		}
+
+# <!-- start /$1_$2/wizards/$1_$2_$3_report.py -->
 endsnippet
 
 snippet odoo_record_group "Odoo res.groups"
-<record id="${1:module_name}_group_${2:group}" model="res.groups">
+<record id="group_${1:module}_${2:admin|user}" model="res.groups">
 	<field name="name">${3:Group name}</field>
-	<field name="category_id" ref="$1.$1_category"/>
+	<field name="category_id" ref="$1_category"/>
 </record>
-endsnippet
-
-snippet odoo_record_menuitem "Odoo menuitem and action"
-<record id="${1:model_name}_action" model="ir.actions.act_window">
-	<field name="name">$3</field>
-	<field name="res_model">$2</field>
-	<field name="view_mode">tree,form</field>
-</record>
-
-<menuitem
-	id="${1}_menu_action"
-	name="${3:Sub Menu}"
-	parent="${4:parent_menu}_menu_root"
-	action="$1_action"
-	sequence="${5:1}"/>
-endsnippet
-
-snippet odoo_menuitem "Odoo menuitem"
-<menuitem
-	id="${1:module_name}_menu_action"
-	name="${2:Sub Menu}"
-	parent="${3:module_name}_menu_root"
-	action="$1_action"
-	sequence="${4:1}"/>
-endsnippet
-
-snippet ti
-<${1:}>${2}</$1>
 endsnippet
 
 snippet odoo_record_pivot "Odoo pivot"
