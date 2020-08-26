@@ -13,7 +13,6 @@ alias cd....='....'
 
 alias go='git checkout'
 alias gst='git status'
-alias gdiff='git diff'
 
 alias cls='clear'
 
@@ -22,6 +21,11 @@ alias glo="git log --oneline --pretty=format:'%C(#d79921)%h%Creset -%C(yellow)%d
 alias gpf="git add . & git commit --amend --no-edit & git push -f"
 alias gca="git add . & git commit --amend --no-edit"
 alias gdf="git diff"
+
+alias dcu="docker-compose up"
+alias dcs="docker-compose stop"
+alias dcr="docker-compose restart"
+alias dcd="docker-compose run --service-ports web"
 
 alias j=jump
 
