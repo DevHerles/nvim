@@ -101,12 +101,15 @@ plugins=(
   history
   colored-man-pages
   jump
+  aws
+  fzf
 )
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 typeset -ga sources
 sources+="$HOME/.config/nvim/oh-my-zsh/aliases.zsh"
+sources+="$HOME/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
 
 # try to include all sources
 foreach file (`echo $sources`)
@@ -114,6 +117,11 @@ foreach file (`echo $sources`)
     source $file
   fi
 end
+
+# only aws command completion
+zstyle ':completion:*:*:aws' fzf-search-display true
+# or for everything
+zstyle ':completion:*' fzf-search-display true
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
