@@ -81,3 +81,20 @@ java version "1.8.0_261"
 Java(TM) SE Runtime Environment (build 1.8.0_261-b12)
 Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
 ```
+
+# Vim awesome commands
+
+## vi/vim/nvim, how can I write out a number of lines to a new file
+
+```bash
+:100,200w filename
+Of course 100,200 is the range of lines you want to write.
+
+:'a,'b w filename then hit return.
+
+vim -c "100,200w new_file.txt" -c wq original_file.txt
+
+For example: :+0,+99w filename write the next 100 lines to filename.
+
+:.w >> filename and hitting return.
+```

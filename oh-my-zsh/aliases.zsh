@@ -29,3 +29,4 @@ alias dcd="docker-compose run --service-ports web"
 
 alias j=jump
 
+alias open=xdg-open
