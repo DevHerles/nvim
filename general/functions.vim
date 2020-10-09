@@ -45,6 +45,34 @@ endfunction
 
 " }}}
 
+" JAVA CRUD FILES {{{
+
+function! GenerateJavaCRUDfiles(Model)
+  let s:curr_path = expand('<sfile>:p:h')
+  let s:path = "/microservice/src/main/java/com/aranda/microservice/"
+  let s:repository_path = "repository/".a:Model."Repository.java"
+  let s:full_path = s:curr_path . s:path . s:repository_path
+  echo s:full_path
+  execute ":3,9w " . s:full_path
+
+  let s:service_path = "service/".a:Model."Service.java"
+  let s:full_path = s:curr_path . s:path . s:service_path
+  echo s:full_path
+  execute ":13,57w " . s:full_path
+
+  let s:controller_path = "controller/".a:Model."Controller.java"
+  let s:full_path = s:curr_path . s:path . s:controller_path
+  echo s:full_path
+  execute ":61,142w " . s:full_path
+
+  let s:pagination_path = "model/pagination/".a:Model."Page.java"
+  let s:full_path = s:curr_path . s:path . s:pagination_path
+  echo s:full_path
+  execute ":146,148w " . s:full_path
+endfunction
+
+" }}}
+
 "  MyNext() and MyPrev(): Movement between tabs OR buffers {{{
 
 function! MyNext()

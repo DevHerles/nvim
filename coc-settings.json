@@ -112,7 +112,7 @@
   "snippets.ultisnips.directories": ["~/.config/nvim/snips"],
 
   // java
-  "xml.java.home": "/usr/local/java/jre1.8.0_261",
+  "xml.java.home": "/usr/local/java/jdk1.8.0_261",
   "xml.format.splitAttributes": true,
   "xml.format.preservedNewlines": 1,
 
