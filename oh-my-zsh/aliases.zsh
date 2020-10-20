@@ -30,3 +30,7 @@ alias dcd="docker-compose run --service-ports web"
 alias j=jump
 
 alias open=xdg-open
+alias vs="vim ~/.config/sxhkd/sxhkdrc"
+alias vb="vim ~/.config/bspwm/bspwmrc"
+alias vp="vim ~/.config/polybar/config"
+alias logout="kill -9 -1"
