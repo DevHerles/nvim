@@ -98,3 +98,21 @@ For example: :+0,+99w filename write the next 100 lines to filename.
 
 :.w >> filename and hitting return.
 ```
+
+## Jump to particular line number from a shell prompt, enter:
+
+```bash
+$ vim +linenumber file.py
+$ vim +3 __init__.py
+```
+
+## Jump to particular line that contains main() function from a shell prompt, enter:
+
+\$ vim +/searchTermHere file.py
+
+```bash
+$ vim +/main initlib.c
+### note shell escape done with \ ###
+$ vim +/addUser\( initlib.c
+$ vim +/addUser\(arg1\) initlib.c
+```
