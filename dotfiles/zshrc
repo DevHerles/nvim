@@ -23,8 +23,9 @@ export PATH=/usr/lib/dart/bin:$PATH
 export PATH=/usr/lib/dart/bin/dartfmt:$PATH
 export PATH=/usr/bin/gem:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export JAVA_HOME=/usr/local/java/jdk-14.0.2
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
+export JAVA_HOME=/usr/local/java/jdk-14.0.2
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
