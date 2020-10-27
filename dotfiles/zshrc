@@ -23,8 +23,9 @@ export PATH=/usr/lib/dart/bin:$PATH
 export PATH=/usr/lib/dart/bin/dartfmt:$PATH
 export PATH=/usr/bin/gem:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export JAVA_HOME=/usr/local/java/jdk-14.0.2
+export PATH=$HOME/.config/composer/vendor/bin:$PATH
 
+export JAVA_HOME=/usr/local/java/jdk-14.0.2
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -102,12 +103,15 @@ plugins=(
   history
   colored-man-pages
   jump
+  aws
+  fzf
 )
 autoload -U compinit && compinit
 source $ZSH/oh-my-zsh.sh
 
 typeset -ga sources
 sources+="$HOME/.config/nvim/oh-my-zsh/aliases.zsh"
+sources+="$HOME/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
 
 # try to include all sources
 foreach file (`echo $sources`)
@@ -115,6 +119,11 @@ foreach file (`echo $sources`)
     source $file
   fi
 end
+
+# only aws command completion
+zstyle ':completion:*:*:aws' fzf-search-display true
+# or for everything
+zstyle ':completion:*' fzf-search-display true
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"

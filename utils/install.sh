@@ -47,6 +47,8 @@ function installAdminTools() {
   which neofetch > /dev/null && echo "neofetch is already installed." || sudo apt install neofetch -y --no-install-recommends
   which clang-format > /dev/null && echo "clang-format is already installed." || sudo apt-get install clang-format -y --no-install-recommends
   which tree > /dev/null && echo "tree is already installed." || sudo apt install tree -y --no-install-recommends
+  which fzf > /dev/null && echo "fzf is already installed." || sudo apt install fzf -y --no-install-recommends
+  which aws > /dev/null && echo "aws is already installed." || sudo apt install awscli -y --no-install-recommends
   which pip3 > /dev/null && echo "pip3 is already installed." || installpip
   which git > /dev/null && echo "git is already installed." || sudo apt install git -y --no-install-recommends
 
@@ -130,6 +132,12 @@ function installOhMyZSH() {
     cd ~/.oh-my-zsh && git pull;
   else
     git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+  fi
+
+  if [ -d ~/.oh-my-zsh/custom/plugins/fzf-tab-completion ]; then
+    cd ~/.oh-my-zsh && git pull;
+  else
+	git clone https://github.com/lincheney/fzf-tab-completion ~/.oh-my-zsh/custom/plugins/fzf-tab-completions
   fi
 
   if [ -f ~/.zshrc ]; then
@@ -265,6 +273,10 @@ function installFonts() { \
   cp $HOME/.config/nvim/fonts/* $HOME/.fonts
 }
 
+function installYoutubeDesktop() {
+  sudo snap install youtube-music-desktop-app
+}
+
 function install() {
   echo 'Installing Nvim DevHerles'
   installAdminTools
@@ -279,6 +291,8 @@ function install() {
   linkDotFiles
   setupDirColors
   installFonts
+  installYoutubeDesktop
+
   echo "I recommend you add 'set preview_images_method ueberzug' to ~/.config/ranger/rc.conf"
 }
 

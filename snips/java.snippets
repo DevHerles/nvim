@@ -1,0 +1,302 @@
+#  ________                ___ ___               .__
+#  \______ \   _______  __/   |   \   ___________|  |   ____   ______
+#   |    |  \_/ __ \  \/ /    ~    \_/ __ \_  __ \  | _/ __ \ /  ___/
+#   |    `   \  ___/\   /\    Y    /\  ___/|  | \/  |_\  ___/ \___ \
+#  /_______  /\___  >\_/  \___|_  /  \___  >__|  |____/\___  >____  >
+#          \/     \/            \/       \/                \/     \/
+# | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
+
+snippet jrepository "Java repository" b
+package com.aranda.${1:microservice}.repository;
+
+import com.aranda.$1.model.${2:Model};
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface $2Repository extends PagingAndSortingRepository<$2, Long> { }
+endsnippet
+
+snippet jservice "Java service" b
+package com.aranda.${1:microservice}.service;
+
+import com.aranda.$1.model.${2:Model};
+import com.aranda.$1.model.pagination.$2Page;
+import com.aranda.$1.repository.$2Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+@Service
+public class $2Service {
+    private final $2Repository ${3:model}Repository;
+
+    public $2Service($2Repository $3Repository) {
+        this.$3Repository = $3Repository;
+    }
+
+    public Page<$2> findAll($2Page $3Page) {
+        Sort sort = Sort.by($3Page.getSortDirection(), $3Page.getSortBy());
+        Pageable pageable = PageRequest.of($3Page.getPageNumber(), $3Page.getPageSize(), sort);
+        return $3Repository.findAll(pageable);
+    }
+
+    public $2 save($2 $3) {
+        return $3Repository.save($3);
+    }
+
+    public $2 findById(Long id) {
+        return $3Repository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Long id) {
+        $3Repository.deleteById(id);
+    }
+
+    public void delete($2 $3) {
+        $3Repository.delete($3);
+    }
+
+    public void deleteAll() {
+        $3Repository.deleteAll();
+    }
+}
+endsnippet
+
+snippet jcontroller "Java Controller" b
+package com.aranda.${1:microservice}.controller;
+
+import com.aranda.$1.model.${2:Model};
+import com.aranda.$1.model.pagination.$2Page;
+import com.aranda.$1.service.$2Service;
+import com.aranda.$1.util.AppException;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/${4:models}")
+public class $2Controller {
+    private final $2Service ${3:model}Service;
+
+    public $2Controller($2Service $3Service) {
+        this.$3Service = $3Service;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<$2>> findAll($2Page $3Page) {
+        return new ResponseEntity<>($3Service.findAll($3Page), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}")
+    public ResponseEntity<$2> findById(@PathVariable("id") Long id) {
+		try {
+            return new ResponseEntity<>($3Service.findById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<$2> save(@RequestBody $2 $3) {
+		try {
+			return new ResponseEntity<>($3Service.save($3), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody $2 $3) {
+        $2 _$3 = $3Service.findById(id);
+        if(_$3 == null)
+            return new ResponseEntity<>(new Exception("$2 not found"), HttpStatus.NOT_FOUND);
+
+        try {
+			_$3.setName($3.getName());
+            return new ResponseEntity<>($3Service.save(_$3), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new AppException(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
+        $2 $3 = $3Service.findById(id);
+        if($3 == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        try {
+            $3Service.delete($3);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+	@DeleteMapping
+	public ResponseEntity<HttpStatus> deleteAll() {
+		try {
+			$3Service.deleteAll();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+}
+endsnippet
+
+snippet jcrud "Java CRUD" b
+// repository
+
+package com.aranda.${1:microservice}.repository;
+
+import com.aranda.$1.model.${2:Model};
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface $2Repository extends PagingAndSortingRepository<$2, Long> {
+}
+
+// service
+
+package com.aranda.$1.service;
+
+import com.aranda.$1.model.$2;
+import com.aranda.$1.model.pagination.$2Page;
+import com.aranda.$1.repository.$2Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+@Service
+public class $2Service {
+    private final $2Repository ${3:model}Repository;
+
+    public $2Service($2Repository $3Repository) {
+        this.$3Repository = $3Repository;
+    }
+
+    public Page<$2> findAll($2Page $3Page) {
+        Sort sort = Sort.by($3Page.getSortDirection(), $3Page.getSortBy());
+        Pageable pageable = PageRequest.of($3Page.getPageNumber(), $3Page.getPageSize(), sort);
+        return $3Repository.findAll(pageable);
+    }
+
+    public $2 save($2 $3) {
+        return $3Repository.save($3);
+    }
+
+    public $2 findById(Long id) {
+        return $3Repository.findById(id).orElse(null);
+    }
+
+    public void deleteById(Long id) {
+        $3Repository.deleteById(id);
+    }
+
+    public void delete($2 $3) {
+        $3Repository.delete($3);
+    }
+
+    public void deleteAll() {
+        $3Repository.deleteAll();
+    }
+}
+
+// controller
+
+package com.aranda.$1.controller;
+
+import com.aranda.$1.model.$2;
+import com.aranda.$1.model.pagination.$2Page;
+import com.aranda.$1.service.$2Service;
+import com.aranda.$1.util.AppException;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/${4:models}")
+public class $2Controller {
+    private final $2Service $3Service;
+
+    public $2Controller($2Service $3Service) {
+        this.$3Service = $3Service;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<$2>> findAll($2Page $3Page) {
+        return new ResponseEntity<>($3Service.findAll($3Page), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "{id}")
+    public ResponseEntity<$2> findById(@PathVariable("id") Long id) {
+        try {
+            return new ResponseEntity<>($3Service.findById(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<$2> save(@RequestBody $2 $3) {
+        try {
+            return new ResponseEntity<>($3Service.save($3), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody $2 $3) {
+        $2 _$3 = $3Service.findById(id);
+        if(_$3 == null)
+            return new ResponseEntity<>(new Exception("$2 not found"), HttpStatus.NOT_FOUND);
+
+        try {
+            _$3.setName($3.getName());
+            return new ResponseEntity<>($3Service.save(_$3), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new AppException(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
+        $2 $3 = $3Service.findById(id);
+        if($3 == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        try {
+            $3Service.delete($3);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<HttpStatus> deleteAll() {
+        try {
+            $3Service.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
+
+// pagination
+
+package com.aranda.$1.model.pagination;
+
+public class $2Page extends GlobalPagination { }
+
+
+endsnippet
