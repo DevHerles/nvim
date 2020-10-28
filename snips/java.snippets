@@ -5,6 +5,53 @@
 #  /_______  /\___  >\_/  \___|_  /  \___  >__|  |____/\___  >____  >
 #          \/     \/            \/       \/                \/     \/
 # | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
+snippet jcreate "Java CRUD(create)" b
+@PostMapping
+public ResponseEntity<?> save(@RequestBody ${1:Model} ${2:model}) {
+    try {
+        return Response.success($2Service.save($2), HttpStatus.CREATED);
+    } catch (Exception e) {
+        return Response.error(e);
+    }
+}
+endsnippet
+
+snippet jupdate "Java CRUD(update)" b
+@PutMapping(value = "{id}")
+public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody ${1:Model} ${2:model}) {
+    try {
+        $1 _$2 = $2Service.findById(id);
+        if(_$2 == null) return Response.notFound($1.class, id);
+        //_$2.set$1($2.get$1());
+        return Response.success($2Service.save(_$2));
+    } catch (Exception e) {
+        return Response.error(e);
+    }
+}
+endsnippet
+
+snippet jcreate-update "Java CRUD(create-update)" b
+@PostMapping
+public ResponseEntity<?> save(@RequestBody ${1:Model} ${2:model}) {
+    try {
+        return Response.success($2Service.save($2), HttpStatus.CREATED);
+    } catch (Exception e) {
+        return Response.error(e);
+    }
+}
+
+@PutMapping(value = "{id}")
+public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody $1 $2) {
+    try {
+        $1 _$2 = $2Service.findById(id);
+        if(_$2 == null) return Response.notFound($1.class, id);
+        //_$2.set$1($2.get$1());
+        return Response.success($2Service.save(_$2));
+    } catch (Exception e) {
+        return Response.error(e);
+    }
+}
+endsnippet
 
 snippet jrepository "Java repository" b
 package com.aranda.${1:microservice}.repository;
@@ -69,15 +116,22 @@ package com.aranda.${1:microservice}.controller;
 import com.aranda.$1.model.${2:Model};
 import com.aranda.$1.model.pagination.$2Page;
 import com.aranda.$1.service.$2Service;
-import com.aranda.$1.util.AppException;
+import com.aranda.$1.utils.AppException;
+import com.aranda.$1.utils.Response;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = {"$2 microservice"})
+@CrossOrigin
 @Controller
-@RequestMapping("/${4:models}")
+@RequestMapping("/api/${4:models}")
 public class $2Controller {
     private final $2Service ${3:model}Service;
 
@@ -90,61 +144,59 @@ public class $2Controller {
         return new ResponseEntity<>($3Service.findAll($3Page), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}")
-    public ResponseEntity<$2> findById(@PathVariable("id") Long id) {
-		try {
-            return new ResponseEntity<>($3Service.findById(id), HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<?> save(@RequestBody $2 $3) {
+        try {
+            $3.setId(null);
+            return Response.successCreate($3Service.save($3));
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return Response.error(e);
         }
     }
 
-    @PostMapping
-    public ResponseEntity<$2> save(@RequestBody $2 $3) {
-		try {
-			return new ResponseEntity<>($3Service.save($3), HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+    @RequestMapping(value = "{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") Long id) {
+        try {
+            $2 $3 = $3Service.findById(id);
+            return $3 != null ? Response.successRead($3) : Response.notFound($2.class, id);
+        } catch (Exception e) {
+            return Response.error(e);
+        }
     }
 
     @PutMapping(value = "{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody $2 $3) {
-        $2 _$3 = $3Service.findById(id);
-        if(_$3 == null)
-            return new ResponseEntity<>(new Exception("$2 not found"), HttpStatus.NOT_FOUND);
-
         try {
-			_$3.setName($3.getName());
-            return new ResponseEntity<>($3Service.save(_$3), HttpStatus.OK);
+            $2 _$3 = $3Service.findById(id);
+            if(_$3 == null) return Response.notFound($2.class, id);
+            BeanUtils.copyProperties($3, _$3);
+            return Response.successUpdate($3Service.save(_$3));
         } catch (Exception e) {
-            return new ResponseEntity<>(new AppException(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return Response.error(e);
         }
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
-        $2 $3 = $3Service.findById(id);
-        if($3 == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
         try {
+            $2 $3 = $3Service.findById(id);
+            if($3 == null) return Response.notFound($2.class, id);
             $3Service.delete($3);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return Response.successDelete();
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return Response.error(e);
         }
     }
 
-	@DeleteMapping
-	public ResponseEntity<HttpStatus> deleteAll() {
-		try {
-			$3Service.deleteAll();
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @DeleteMapping
+    public ResponseEntity<?> deleteAll() {
+        try {
+            $3Service.deleteAll();
+            return Response.successDeleteAll();
+        } catch (Exception e) {
+            return Response.error(e);
+        }
+    }
 }
 endsnippet
 
