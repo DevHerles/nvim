@@ -67,7 +67,30 @@ class ${1:`!v expand('%:t:r')`} extends Component {
 export default $1;
 endsnippet
 
-snippet rfc "React Functional Component" b
+snippet rfc "React Functional Component - MUI" b
+import { makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+
+const useStyles = makeStyles((theme) => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(3),
+  },
+  root: {
+    backgroundColor: '#fff',
+  },
+}));
+
+export default function `!v expand('%:t:r')`() {
+	return (
+		<>
+			$1
+		</>
+	);
+}
+endsnippet
+
+snippet rfc2 "React Functional Component" b
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './${2:$1}.css';
@@ -323,4 +346,8 @@ endsnippet
 
 snippet us.rf "useRef" w
 const $1 = useRef($2)${0:;}
+endsnippet
+
+snippet rimp "Import" b
+import ${2:Component} from "${1:./Component}"
 endsnippet
