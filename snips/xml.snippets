@@ -115,6 +115,26 @@ snippet odoo "Complete Odoo template"
 	</data>
 </odoo>
 endsnippet
+snippet odoo_inherit_view "Complete Odoo inherit view template"
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<data>
+
+		<record id="${1:model_name}_view_$4_inherit_$5_$6" model="ir.ui.view">
+			<field name="name">$1.$2.$3.${4:form}</field>
+			<field name="model">${2:model}.${3:name}</field>
+			<field name="inherit_id" ref="${5:parent_module}.${6:view_id_to_inherit}_view_$4"/>
+			<field name="arch" type="xml">
+				<xpath expr="//${7:field}[@name='${8:field_name}']" position="after">
+					<field name="${9:name}"/>$10
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>
+endsnippet
 
 snippet mroot "my_snippets"
 <menuitem
@@ -442,7 +462,7 @@ snippet table "HTML table"
 </table>
 endsnippet
 
-snippet odoo_record_inherit "Odoo general record view"
+snippet odoo_record "Odoo general record view"
 <record id="${1:module_name}_${2:model}_${3:name}_view_$4" model="ir.ui.view">
 	<field name="name">$1.$2.$3.$4</field>
 	<field name="model">$1.$2.$3</field>
