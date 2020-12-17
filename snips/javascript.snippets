@@ -67,9 +67,10 @@ class ${1:`!v expand('%:t:r')`} extends Component {
 export default $1;
 endsnippet
 
-snippet rfc "React Functional Component - MUI" b
-import { makeStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+snippet rfc "React Functional Component - MUI Form" b
+import { makeStyles } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { useForm, Form } from "./useForm";
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -81,7 +82,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function `!v expand('%:t:r')`() {
+const initialValues = {
+  code: 0,
+  name: '',
+};
+export default function `!v expand('%:t:r')`(props) {
+	const { addOrEdit, recordForEdit } = props;
+
+	const validate = (fieldValues = values) => {
+	  let _errors = { ...errors };
+	  if ('code' in fieldValues)
+	    _errors.code = fieldValues.code ? "" : "This field is required";
+	  if ('name' in fieldValues)
+	    _errors.name = fieldValues.name ? "" : "This field is required";
+	  setErrors({..._errors});
+
+	  if (fieldValues === values)
+	    return Object.values(_errors).every(error => error === "")
+	}
+
+	const {
+	  values,
+	  setValues,
+	  errors,
+	  setErrors,
+	  handleInputChange,
+	  resetForm,
+	} = useForm(initialValues, true, validate);
+
+	const handleSubmit = (event) => {
+	  event.preventDefault();
+	  if ( validate() ) {
+	    addOrEdit(values, resetForm);
+	  }
+	};
+
+	useEffect(() => {
+	  if (recordForEdit != null)
+	  setValues({...recordForEdit})
+	}, [recordForEdit]);
+
 	return (
 		<>
 			$1
@@ -89,6 +129,32 @@ export default function `!v expand('%:t:r')`() {
 	);
 }
 endsnippet
+
+snippet rfcc "React Functional Component Control" b
+import React from "react";
+import { ${1}, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minWidth: 0,
+    margin: theme.spacing(0.5)
+  }
+}));
+
+export default function `!v expand('%:t:r')`(props) {
+	const { children, onClick } = props;
+	const classes = useStyles();
+	return (
+	  <${1:Button}
+	      className={classes.root}
+	      onClick={onClick}>
+	      {children}
+	  </${1}>
+	);
+}
+
+endsnippet
+
 
 snippet rfc2 "React Functional Component" b
 import React from 'react';
