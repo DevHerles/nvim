@@ -23,6 +23,16 @@ snippet ***
 #  ${0}
 ##############################################################################
 endsnippet
+snippet odoo "Odoo base template"
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models
+
+
+class ${1:Class}(models.Model):
+	_name = 'module.model'
+
+endsnippet
 snippet report "Odoo report wizard"
 # -*- coding: utf-8 -*-
 
