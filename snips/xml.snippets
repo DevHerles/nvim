@@ -196,6 +196,70 @@ snippet odoo_record_calendar "Odoo calendar view"
 </record>
 endsnippet
 
+snippet odoo_report_short "Odoo report template without wizard"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HerlesINC -->
+<!-- start /$1_$2/reports/$3_report_wizard.xml -->
+<odoo>
+	<data>
+		<template id="$1_$2_$3_report_template">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="report.external_layout">
+						<div class="page">
+							<div style="text-align: right;">
+								<div>
+									Usuario: <b><span t-esc="user.name"></span></b>
+								</div>
+								<div>
+									Fecha y hora de impresión: <b><span t-esc="content.get('print_datetime')"/></b>
+								</div>
+							</div>
+							<div style="text-align: center;">
+								<h4><span t-esc="content.get('report_name')"/></h4>
+							</div>
+							<t t-call="$1_$2.$1_$2_$3_$7_template"/>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		<template id="$1_$2_$3_${7:template_name}_template">
+			<table class="table table-bordered table-condensed">
+				<thead class="thead-light">
+					<tr>
+						<th>TEMPLATE TITLE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><span t-esc="doc.name"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</template>
+	</data>
+</odoo>
+
+<!-- start /$1_$2/reports/$3_report_views.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<report id="$3_report_wizard"
+			model="$1.$2.$3.report.wizard"
+			string="Reporte (PDF)"
+			report_type="qweb-pdf"
+			name="$1_$2.$1_$2_$3_report_template"
+			file="$1_$2.$1_$2_$3_report_template"
+		/>
+
+	</data>
+</odoo>
+
+endsnippet
+
 snippet odoo_report "Odoo report template"
 <?xml version="1.0" encoding="utf-8"?>
 <!-- HerlesINC -->
