@@ -116,3 +116,27 @@ $ vim +/main initlib.c
 $ vim +/addUser\( initlib.c
 $ vim +/addUser\(arg1\) initlib.c
 ```
+
+## git-diff to ignore ^M
+```bash
+$ git config --global core.autocrlf true
+```
+Of course, this is said to convert crlf to lf, while you want to convert cr to lf. I hope this still works …
+
+And then convert your files:
+
+### Remove everything from the index
+```bash
+$ git rm --cached -r .
+```
+
+### Re-add all the deleted files to the index
+### You should get lots of messages like: "warning: CRLF will be replaced by LF in <file>."
+```bash
+$ git diff --cached --name-only -z | xargs -0 git add
+```
+  
+### Commit
+```bash
+$ git commit -m "Fix CRLF"
+```
