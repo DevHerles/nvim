@@ -26,11 +26,10 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 export PATH=/home/herles/.config/composer/vendor/bin/laravel:$PATH
-export JAVA_HOME=/usr/local/java/jdk-14.0.2
+# export JAVA_HOME=/usr/local/java/jdk-14.0.2
+export JAVA_HOME=/home/herles/.jdks/openjdk-15
 
 export BAT_THEME="Enki-Aster"
-
-export JAVA_HOME=/home/herles/.jdks/openjdk-15
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
