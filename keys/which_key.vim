@@ -39,6 +39,7 @@ let g:which_key_map['9'] = [ ':Goyo'                      , 'goyo+limelight' ]
 let g:which_key_map['.'] = [ '<Plug>(coc-codeaction)'     , 'coc-codeaction' ]
 let g:which_key_map[','] = [ '<Plug>(GitGutterNextHunk)'  , 'git next hunk' ]
 let g:which_key_map['<'] = [ '<Plug>(GitGutterPrevHunk)'  , 'git prev hunk' ]
+let g:which_key_map['*'] = [ '<Plug>AgRawWordUnderCursor' , 'AgRaw Word Under Cursor' ]
 let g:which_key_map['$'] = [ ':e $MYVIMRC'                , 'open init.vim' ]
 let g:which_key_map[';'] = [ ':Commands'                  , 'commands' ]
 let g:which_key_map['+'] = [ ':vertical resize +20'       , 'vertical+resize' ]
@@ -70,13 +71,9 @@ let g:which_key_map['z'] = [':FloatermToggle'             , 'zhell' ]
 " a is for actions
 let g:which_key_map.A = {
       \ 'name' : '+actions' ,
-      \ 'a' : [':Ack!<Space><C-R><C-W>'  , 'Ack! current word'],
       \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
       \ 'p' : ['g;'                      , 'jump back last edit'],
       \ 'n' : ['g,'                      , 'jump next last edit'],
-      \ 't' : [':FloatermToggle'         , 'terminal'],
-      \ 'V' : [':Vista!!'                , 'tag viewer'],
-      \ 'w' : [':w'                      , 'write buffer'],
       \ }
 
 " b is for buffer
@@ -84,12 +81,8 @@ let g:which_key_map.B = {
       \ 'name' : '+buffer' ,
       \ '1' : ['b1'        , 'buffer 1']        ,
       \ '2' : ['b2'        , 'buffer 2']        ,
-      \ 'd' : ['bd'        , 'delete-buffer']   ,
-      \ 'f' : ['bfirst'    , 'first-buffer']    ,
-      \ 'h' : ['Startify'  , 'home-buffer']     ,
-      \ 'l' : ['blast'     , 'last-buffer']     ,
-      \ 'n' : ['bnext'     , 'next-buffer']     ,
-      \ 'p' : ['bprevious' , 'previous-buffer'] ,
+      \ 'a' : ['bfirst'    , 'first-buffer']    ,
+      \ 'z' : ['blast'     , 'last-buffer']     ,
       \ '?' : ['Buffers'   , 'fzf-buffer']      ,
       \ }
 
@@ -111,16 +104,14 @@ let g:which_key_map.F = {
       \ 'name' : '+search' ,
       \ '/' : [':History/'              , 'history'],
       \ ';' : [':Commands'              , 'commands'],
-      \ 'a' : [':Ag'                    , 'text Ag'],
+      \ 'a' : ['<Plug>RgRawSearch'      , 'Rg Raw Search'],
       \ 'b' : [':BLines'                , 'current buffer'],
       \ 'B' : [':Buffers'               , 'open buffers'],
       \ 'c' : [':Commits'               , 'commits'],
       \ 'C' : [':BCommits'              , 'buffer commits'],
-      \ 'f' : [':Files'                 , 'files'],
       \ 'g' : [':GFiles'                , 'git files'],
       \ 'G' : [':GFiles?'               , 'modified git files'],
       \ 'h' : [':History'               , 'file history'],
-      \ 'H' : [':History:'              , 'command history'],
       \ 'l' : [':Lines'                 , 'lines'] ,
       \ 'm' : [':Marks'                 , 'marks'] ,
       \ 'M' : [':Maps'                  , 'normal maps'] ,
@@ -128,21 +119,15 @@ let g:which_key_map.F = {
       \ 'P' : [':Tags'                  , 'project tags'],
       \ 's' : [':CocList snippets'      , 'snippets'],
       \ 'S' : [':Colors'                , 'color schemes'],
-      \ 't' : [':Rg'                    , 'text Rg'],
+      \ 't' : ['<Plug>AgRawSearch'      , 'Ag Raw Search'],
       \ 'T' : [':BTags'                 , 'buffer tags'],
-      \ 'w' : [':Windows'               , 'search windows'],
-      \ 'y' : [':Filetypes'             , 'file types'],
-      \ 'z' : [':FZF'                   , 'FZF'],
       \ }
 
 " g is for git
 let g:which_key_map.G = {
       \ 'name' : '+git' ,
-      \ 'a' : [':Git add .'                        , 'add all'],
-      \ 'A' : [':Git add %'                        , 'add current'],
       \ 'b' : [':Git blame'                        , 'blame'],
       \ 'B' : [':GBrowse'                          , 'browse'],
-      \ 'c' : [':Git commit'                       , 'commit'],
       \ 'D' : [':Git diff'                         , 'diff'],
       \ 'd' : [':Gdiffsplit!'                      , 'diff split'],
       \ 'g' : [':GGrep'                            , 'git grep'],
@@ -152,8 +137,6 @@ let g:which_key_map.G = {
       \ 'j' : ['<Plug>(GitGutterNextHunk)'         , 'next hunk'],
       \ 'k' : ['<Plug>(GitGutterPrevHunk)'         , 'prev hunk'],
       \ 'l' : [':Git log'                          , 'log'],
-      \ 'p' : [':Git push'                         , 'push'],
-      \ 'P' : [':Git pull'                         , 'pull'],
       \ 'r' : [':GRemove'                          , 'remove'],
       \ 's' : ['<Plug>(GitGutterStageHunk)'        , 'stage hunk'],
       \ 't' : [':GitGutterSignsToggle'             , 'toggle signs'],
@@ -236,31 +219,5 @@ let g:which_key_map.W = {
       \ 'u' : ['<plug>(wiki-list-uniq)'                         , 'ncdu'],
       \ 'U' : ['<plug>(wiki-list-uniq-local)'                   , 'ncdu'],
       \ }
-
-" Global
-" <Plug>VimwikiIndex
-" <Plug>VimwikiTabIndex
-" <Plug>VimwikiUISelect
-" <Plug>VimwikiDiaryIndex
-" <Plug>VimwikiMakeDiaryNote
-" <Plug>VimwikiTabMakeDiaryNote
-" <Plug>VimwikiMakeYesterdayDiaryNote
-" <Plug>VimwikiMakeTomorrowDiaryNote
-"
-" " Local
-" <Plug>Vimwiki2HTML
-" <Plug>Vimwiki2HTMLBrowse
-" <Plug>VimwikiDiaryGenerateLinks
-" <Plug>VimwikiFollowLink
-" <Plug>VimwikiSplitLink
-" <Plug>VimwikiVSplitLink
-" <Plug>VimwikiTabnewLink
-" <Plug>VimwikiGoBackLink
-" <Plug>VimwikiNextLink
-" <Plug>VimwikiPrevLink
-" <Plug>VimwikiGoto
-" <Plug>VimwikiDeleteLink
-" <Plug>VimwikiRenameLink
-" <Plug>VimwikiAddHeaderLevel
 
 autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
