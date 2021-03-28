@@ -140,16 +140,11 @@ git rm .env --cached
 git commit -m "Stopped tracking .env File"
 ```
 
-### Re-add all the deleted files to the index
+### Re-add all deleted files to the index
 
-### You should get lots of messages like: "warning: CRLF will be replaced by LF in <file>."
+You should get lots of messages like: "warning: CRLF will be replaced by LF in <file>."
 
 ```bash
 $ git diff --cached --name-only -z | xargs -0 git add
-```
-
-### Commit
-
-```bash
 $ git commit -m "Fix CRLF"
 ```
