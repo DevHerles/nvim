@@ -69,7 +69,7 @@ set nobackup | set nowritebackup " - Some servers have issues with backup files
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd BufWritePost *.vim silent source $MYVIMRC " ----- autosource vim config
-autocmd BufWritePre,TextChanged,InsertLeave *.jsx Prettier
+autocmd BufWritePre,InsertLeave *.jsx Prettier
 " }}}
 
 " SYNTAX {{{
@@ -113,8 +113,8 @@ set backspace=indent,eol,start " --------------- Allow backspace in insert mode
 
 " TAB, INDENT {{{
 
-set tabstop=4 " -------------------------------------------- 4 spaces for 1 tab
-set softtabstop=4
+set tabstop=2 " -------------------------------------------- 2 spaces for 1 tab
+set softtabstop=2
 set shiftwidth=2
 set expandtab " ---------------------------------------- Add tab in insert mode
 set smarttab
