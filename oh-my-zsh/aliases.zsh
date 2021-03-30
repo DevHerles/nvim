@@ -2,6 +2,8 @@ export EDITOR="nvim"
 
 alias vi="nvim"
 alias vim="nvim"
+alias vif='nvim $(fzf)'
+alias ivf='nvim $(fzf)'
 
 alias cd=' cd'
 alias ..=' cd ..; ls'
