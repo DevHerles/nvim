@@ -36,5 +36,5 @@ alias vp="vim ~/.config/polybar/config"
 alias logout="kill -9 -1"
 
 alias fzf="fzf --height 70% --layout reverse --info inline --border \
-    --preview 'bat --style=numbers --color=always --line-range :500 {}' --preview-window down:15:noborder \
+    --preview 'bat --style=numbers --color=always --line-range :500 {}' --preview-window right:60%:noborder \
     --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'"

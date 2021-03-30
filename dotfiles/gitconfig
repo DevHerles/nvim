@@ -1,15 +1,9 @@
 [user]
   name = HerlesINC
   email = herles.incalla@gmail.com
-[alias]
-  co = checkout
-  br = branch
-  st = status
-  cf = config
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  cm = commit
 [core]
   editor = vim
+  autocrlf = true
 [color "status"]
   added = green
   changed = red bold
