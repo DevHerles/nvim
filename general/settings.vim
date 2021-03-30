@@ -69,7 +69,7 @@ set nobackup | set nowritebackup " - Some servers have issues with backup files
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 autocmd BufWritePost *.vim silent source $MYVIMRC " ----- autosource vim config
-
+autocmd BufWritePre,TextChanged,InsertLeave *.jsx Prettier
 " }}}
 
 " SYNTAX {{{
@@ -101,8 +101,8 @@ set autoread " -------------------------------------- Auto reloaded Edited File
 set noswapfile " ---------------------------------------- Dont create swap file
 set nobackup " ----------------------------------------------- Dont save backup
 filetype plugin on " ------------------------------------------- Turn on plugin
-let g:jsx_ext_required = 1 " ----------------------- Dont detect js file as jsx
-
+" let g:jsx_ext_required = 1 " ----------------------- Dont detect js file as jsx
+" autocmd FileType javascript setlocal formatprg=prettier\ --single-quote\ --trailing-comma\ es5
 " }}}
 
 " TYPINGS {{{

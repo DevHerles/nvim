@@ -148,3 +148,24 @@ You should get lots of messages like: "warning: CRLF will be replaced by LF in <
 $ git diff --cached --name-only -z | xargs -0 git add
 $ git commit -m "Fix CRLF"
 ```
+
+# Lazygit `config.yml`
+
+```yml
+reporting: "on"
+startuppopupversion: 1
+gui:
+  theme:
+    lightTheme: false # For terminals with a light background
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - cyan
+    selectedLineBgColor:
+      - black
+    selectedRangeBgColor:
+      - blue
+```
