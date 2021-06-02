@@ -21,4 +21,12 @@ augroup XML
     autocmd FileType xml :syntax on
     autocmd FileType xml :%foldopen!
 augroup END
+
+augroup JSX
+  autocmd!
+  autocmd FileType jsx setlocal foldmethod=syntax
+  autocmd FileType jsx setlocal foldcolumn=1
+  autocmd FileType jsx setlocal foldlevelstart=99
+  autocmd FileType jsx setlocal javaScript_fold=1
+augroup END
 " }}}
