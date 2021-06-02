@@ -3,7 +3,7 @@
   email = herles.incalla@gmail.com
 [core]
   editor = vim
-  autocrlf = true
+  autocrlf = input
 [color "status"]
   added = green
   changed = red bold
