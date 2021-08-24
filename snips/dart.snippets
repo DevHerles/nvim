@@ -94,6 +94,8 @@ endsnippet
 
 snippet hookconsumerwidget "Create a HookConsumerWidget" b
 class ${1:MyApp} extends HookConsumerWidget {
+    const $1({Key? key}) : super(key: key);
+    
     @override
     Widget build(BuildContext context, WidgetRef ref) {
         final String ${2:value} = ref.watch(${3:fooProvider});
