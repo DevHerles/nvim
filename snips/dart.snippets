@@ -108,3 +108,29 @@ class ${1:MyApp} extends HookConsumerWidget {
     }
 }
 endsnippet
+
+snippet rliststatenotifier "Creata a StateNotifier list" b
+class ${1:Foo}List extends StateNotifier<List<$1>> {
+    $1List([List<$1>? state]) : super(state ?? []);
+    void add($1 data) {
+        state = [...state, data];
+    }
+
+    void edit($1 target) {
+        state = [
+            for(final record in state)
+                if(record.id == target.id)
+                    $1(
+                        id: target.id,
+                    )
+                else
+                    record,
+        ];
+    }
+
+    void remove($1 target) {
+        state = state.where((record) => record.id != target.id).toList();
+    }
+}
+endsnippet
+
