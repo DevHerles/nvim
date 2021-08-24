@@ -1,0 +1,95 @@
+#  ________                ___ ___               .__
+#  \______ \   _______  __/   |   \   ___________|  |   ____   ______
+#   |    |  \_/ __ \  \/ /    ~    \_/ __ \_  __ \  | _/ __ \ /  ___/
+#   |    `   \  ___/\   /\    Y    /\  ___/|  | \/  |_\  ___/ \___ \
+#  /_______  /\___  >\_/  \___|_  /  \___  >__|  |____/\___  >____  >
+#          \/     \/            \/       \/                \/     \/
+# | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
+snippet fclass "@freezed class" b
+@freezed
+class ${1:Class} with _$$1 {
+    factory $1({
+        @Default('') String code,
+        @Default('') String name,
+    }) = _$1;
+    factory $1.fromJson(Map json) => _$$1FromJson(json);
+    $1._();
+}
+endsnippet
+
+
+snippet rprovider "Create a Provider" b
+final ${1:foo}Provider = Provider<${2:type}>((ref) {
+    return ${3:bar};
+});
+endsnippet
+
+snippet rproviderfamily "Create a Provider with family modifier" b
+final ${1:foo}Provider = Provider.family<${2:type}, ${3:dynamic}>((ref, ${4:value}) {
+    return ${5:bar};
+});
+endsnippet
+
+snippet rstateprovider "Create a StateProvider" b
+final ${1:foo}StateProvider = StateProvider<${2:type}>((ref) {
+    return ${3:bar};
+});
+endsnippet
+
+snippet rstreamprovider "Create a StreamProvider" b
+final ${1:foo}StreamProvider = StreamProvider<${2:type}>((ref) async* {
+    return ${3:bar};
+});
+endsnippet
+
+
+snippet rchangenotifier "Create a ChangeNotifier" b
+class ${1:foo}ChangeNotifier extends ChangeNotifier {
+    return ${3:bar};
+});
+endsnippet
+
+snippet rstatenotifier "Create a StateNotifier" b
+class ${1:foo}StateNotifier extends StateNotifier<${2:type}> {
+    $1StateNotifier(): super(${3:foo:bar});
+    return ${4:bar};
+});
+endsnippet
+
+snippet rchangenotifierprovider "Create a ChangeNotifierProvider" b
+final ${1:foo}ChangeNotifierProvider = ChangeNotifierProvider<${2:type}>((ref) {
+    return ${3:bar};
+});
+endsnippet
+
+snippet rchangenotifierproviderwithfamily "Create a ChangeNotifierProvider with Family modifier" b
+final ${1:foo}ChangeNotifierProvider = ChangeNotifierProvider.family<${2:type}, ${3:dynamic}>((ref, ${value}) {
+    return ${4:bar};
+});
+endsnippet
+
+snippet rfutureprovider "Create a FutureProvider" b
+final ${1:foo}FutureProvider = FutureProvider<${2:type}>((ref) async {
+    return ${3:bar};
+});
+endsnippet
+
+snippet rfutureproviderwithfamily "Create a FutureProvider with Family modifier" b
+final ${1:foo}FutureProvider = FutureProvider.family<${2:type}, ${3:dynamic}>((ref, ${value}) async {
+    return ${4:bar};
+});
+endsnippet
+
+snippet rconsumer "Create a consumer" b
+Consumer(
+    builder: (context, watch, child) {
+    return ${1:Text("Consumer")};
+    }
+),
+endsnippet
+
+snippet rscopedprovider "Create a ScopedProvider" b
+final ${1:foo}ScopedProvider = ScopedProvider<${2:type}>((ref) {
+    return ${3:bar};
+});
+endsnippet
