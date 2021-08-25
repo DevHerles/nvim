@@ -27,6 +27,7 @@ source $HOME/.config/nvim/plug-config/gitgutter.vim " ------- GitGutter configs
 source $HOME/.config/nvim/plug-config/rnvimr.vim " -----Rnvimr (Ranger) configs
 source $HOME/.config/nvim/plug-config/vim-commentary.vim " vim-commentary confs
 source $HOME/.config/nvim/plug-config/goyo-limelight.vim " --- Distraction free
+source $HOME/.config/nvim/plug-config/vim-silicon.vim " --- The image generator
 source $HOME/.config/nvim/themes/airline.vim " --------- Airline theme settings
 source $HOME/.config/nvim/themes/colorscheme.vim " ---- Random Colorscheme
 luafile $HOME/.config/nvim/lua/plug-colorizer.lua
