@@ -6,6 +6,11 @@
 #          \/     \/            \/       \/                \/     \/
 # | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
 snippet fclass "@freezed class" b
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part '`!v expand('%:t:r')`.freezed.dart';
+part '`!v expand('%:t:r')`.g.dart';
+
 @freezed
 class ${1:Class} with _$$1 {
     @JsonSerializable(fieldRename: FieldRename.snake)
@@ -16,7 +21,6 @@ class ${1:Class} with _$$1 {
     factory $1.fromJson(Map<String, dynamic> json) => _$$1FromJson(json);
     $1._();
 }
-endsnippet
 
 snippet rprovider "Create a Provider" b
 final ${1:foo}Provider = Provider<${2:type}>((ref) {
@@ -31,9 +35,7 @@ final ${1:foo}Provider = Provider.family<${2:type}, ${3:dynamic}>((ref, ${4:valu
 endsnippet
 
 snippet rstateprovider "Create a StateProvider" b
-final ${1:foo}StateProvider = StateProvider<${2:type}>((ref) {
-    return ${3:bar};
-});
+final ${1:foo}StateProvider = StateProvider<${2:type}>((ref) => ${3:bar});
 endsnippet
 
 snippet rstreamprovider "Create a StreamProvider" b
@@ -43,13 +45,13 @@ final ${1:foo}StreamProvider = StreamProvider<${2:type}>((ref) async* {
 endsnippet
 
 snippet rchangenotifier "Create a ChangeNotifier" b
-class ${1:foo}ChangeNotifier extends ChangeNotifier {
-    return ${3:bar};
-});
+class ${1:Foo}ChangeNotifier ${2:extends|with} ChangeNotifier {
+		$1ChangeNotifier(){}
+}
 endsnippet
 
 snippet rstatenotifier "Create a StateNotifier" b
-class ${1:foo}StateNotifier extends StateNotifier<${2:type}> {
+class ${1:Foo}StateNotifier extends StateNotifier<${2:type}> {
     $1StateNotifier(): super(${3:foo:bar});
     return ${4:bar};
 });
@@ -57,20 +59,18 @@ endsnippet
 
 snippet rchangenotifierprovider "Create a ChangeNotifierProvider" b
 final ${1:foo}ChangeNotifierProvider = ChangeNotifierProvider<${2:type}>((ref) {
-    return ${3:bar};
+    return $2();
 });
 endsnippet
 
 snippet rchangenotifierproviderwithfamily "Create a ChangeNotifierProvider with Family modifier" b
 final ${1:foo}ChangeNotifierProvider = ChangeNotifierProvider.family<${2:type}, ${3:dynamic}>((ref, ${value}) {
-    return ${4:bar};
+    return $2();
 });
 endsnippet
 
 snippet rfutureprovider "Create a FutureProvider" b
-final ${1:foo}FutureProvider = FutureProvider<${2:type}>((ref) async {
-    return ${3:bar};
-});
+final ${1:foo}FutureProvider = FutureProvider${2:<type>}((ref) async => ${3:bar});
 endsnippet
 
 snippet rfutureproviderwithfamily "Create a FutureProvider with Family modifier" b
@@ -137,3 +137,30 @@ class ${1:Foo}List extends StateNotifier<List<$1>> {
 }
 endsnippet
 
+snippet fstatelessw "Create a Flutter StatelessWidget" b
+class ${1:Foo}Page extends StatelessWidget {
+		@override
+		Widget build(BuildContext context) {
+				return MaterialApp(
+						debugShowCheckedModeBanner: false,
+						theme: ThemeData(
+								fontFamily: '${2:avenir}'
+						),
+      			home: ${3:Container()},
+				);
+		}
+}
+endsnippet
+
+snippet fstatefulw "Create a Flutter StatefulWidget" b
+class ${1:Foo}Page extends StatefulWidget {
+		@override
+		_$1PageState createState() => _$1PageState();
+}
+class _$1PageState extends State<$1Page> {
+		@override
+		Widget build(BuildContext context) {
+				return Container();
+		}
+}
+endsnippet
