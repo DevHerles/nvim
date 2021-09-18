@@ -40,7 +40,7 @@ function installAdminTools() {
   which lazygit > /dev/null && echo "lazygit is already installed." || sudo add-apt-repository ppa:lazygit-team/release && sudo apt-get update && sudo apt-get install lazygit -y --no-install-recommends
   which wget > /dev/null && echo "wget is already installed." || sudo apt-get install wget -y --no-install-recommends
   which lazydocker > /dev/null && echo "lazydocker is already installed." || askToInstallLazyDocker
-  which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y --no-install-recommends
+  # which ripgrep > /dev/null && echo "ripgrep is already installed." || sudo apt install ripgrep -y --no-install-recommends
   which universal-ctags > /dev/null && echo "universal-ctags is already installed." || sudo apt install universal-ctags -y --no-install-recommends
   which silversearcher-ag > /dev/null && echo "silversearcher-ag is already installed." || sudo apt install silversearcher-ag -y --no-install-recommends
   which fd-find > /dev/null && echo "fd-find is already installed." || sudo apt install fd-find -y --no-install-recommends
