@@ -1,0 +1,7 @@
+require('options')
+require('plugins')
+require('nvim-tree-config')
+require('lsp-config')
+require('lsp-installer-config')
+require('keybindings')
+require('colorschemes-config')
