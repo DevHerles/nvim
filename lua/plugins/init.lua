@@ -1,3 +1,11 @@
+--  ________                ___ ___               .__
+--  \______ \   _______  __/   |   \   ___________|  |   ____   ______
+--   |    |  \_/ __ \  \/ /    ~    \_/ __ \_  __ \  | _/ __ \ /  ___/
+--   |    `   \  ___/\   /\    Y    /\  ___/|  | \/  |_\  ___/ \___ \
+--  /_______  /\___  >\_/  \___|_  /  \___  >__|  |____/\___  >____  >
+--          \/     \/            \/       \/                \/     \/
+-- | Author: HerlesINC | Github: DevHerles | Email: herles.incalla@gmail.com |
+
 return require("packer").startup(function()
 	use("wbthomason/packer.nvim")
     -- use("kyazdani42/nvim-web-devicons") 
@@ -41,9 +49,7 @@ return require("packer").startup(function()
                     -- enables copy sync and overwrites all register actions to
                     -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
                     enable = true,
-                },
-                navigation = {
-                    -- enables default keybindings (C-hjkl) for normal mode
+                }, navigation = { -- enables default keybindings (C-hjkl) for normal mode
                     enable_default_keybindings = true,
                 },
                 resize = {
@@ -54,7 +60,28 @@ return require("packer").startup(function()
         end
     })
 
-    use("EdenEast/nightfox.nvim") --> nightfox colorsceme for neovim
-    use('ghifarit53/tokyonight-vim')
+    -- cmp plugins --------------------------------------------------------------
+    use "hrsh7th/nvim-cmp" -------------------------------- The completion plugin
+    use "hrsh7th/cmp-buffer" ---------------------------------- buffer completion
+    use "hrsh7th/cmp-path" -------------------------------------- path completion
+    use "saadparwaiz1/cmp_luasnip" --------------------------- snippet completion
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-cmdline'
+
+    -- snippets -----------------------------------------------------------------
+    use "L3MON4D3/LuaSnip" --------------------------------------- Snippet engine
+    use "rafamadriz/friendly-snippets" ---------------- a bunch to snippet to use
+
+    -- tabs
+    use {'akinsho/bufferline.nvim', tag = "v2.*",
+        requires = 'kyazdani42/nvim-web-devicons'
+    }
+    use "moll/vim-bbye"
+    use "vim-scripts/BufOnly.vim" ---------------- Allows to delete other buffers
+
+    -- colorschemes -------------------------------------------------------------
+    use("EdenEast/nightfox.nvim") ---------------- nightfox colorsceme for neovim
+    use("ghifarit53/tokyonight-vim")
+    use("DevHerles/aranda")
 
 end)

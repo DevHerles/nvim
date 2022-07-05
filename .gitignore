@@ -1,5 +1,6 @@
 autoload/plugged/*
 paths.vim
+plugin/packer_compiled.lua
 session
 wiki/
 undodir/
