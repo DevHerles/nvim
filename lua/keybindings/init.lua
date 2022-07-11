@@ -1,20 +1,23 @@
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 
 local wk = require("which-key")
 
 local keymap = vim.api.nvim_set_keymap
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
+
+keymap("n", "<ESC>", ":nohl<cr>", opts)
 
 -- Act like D and C ------------------------------------------------------------
-keymap('n', 'Y', 'y$', opts)
+keymap("n", "Y", "y$", opts)
+keymap("n", "<C-y>", "yaw", opts)
 
-keymap('n', '0', '^', opts)
-keymap('n', ',', '<PageDown>', opts)
-keymap('n', ';', '<PageUp>', opts)
-keymap('n', '<C-h>', '<C-w>h', opts)
-keymap('n', '<C-l>', '<C-w>l', opts)
-keymap('n', '<C-j>', '<C-w>j', opts)
-keymap('n', '<C-k>', '<C-w>k', opts)
+keymap("n", "0", "^", opts)
+keymap("n", ",", "<PageDown>", opts)
+keymap("n", ";", "<PageUp>", opts)
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
 
 -- Resize with arrows ----------------------------------------------------------
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
@@ -52,17 +55,20 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 wk.register({
-  ["<leader>f"] = { name = "+file" },
-  ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
-  ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-  ["<leader>fn"] = { "<cmd>enew<cr>", "New File" },
-  ["<leader>e"] = { "<cmd>Ranger<cr>", "Explorer" },
-  ["<leader>-"] = { "<cmd>split<cr>", "Vertical split" },
-  ["<leader>|"] = { "<cmd>vsplit<cr>", "Horizontal split" },
-  ["<leader>i"] = { "<cmd>PackerSync<cr>", "Install plugins" },
-  ["<leader>w"] = { "<cmd>w<cr>", "Write" },
-  ["<leader>q"] = { "<cmd>q<cr>", "Quit" },
-  ["<leader>Q"] = { "<cmd>qa!<cr>", "Force Quit" },
-  ["<leader>d"] = { "<cmd>Bdelete<cr>", "Delete buffer" },
-  ["<leader>D"] = { "<cmd>Bonly<cr>", "Delete other buffers" },
+	["<leader>f"] = { name = "+file" },
+	["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+	["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+	["<leader>fn"] = { "<cmd>enew<cr>", "New File" },
+	["<leader>fb"] = { "<cmd>Telescope buffers<cr>", "Find buffers" },
+	["<leader>e"] = { "<cmd>Ranger<cr>", "Explorer" },
+	["<leader>-"] = { "<cmd>split<cr>", "Vertical split" },
+	["<leader>|"] = { "<cmd>vsplit<cr>", "Horizontal split" },
+	["<leader>i"] = { "<cmd>PackerSync<cr>", "Install plugins" },
+	["<leader>w"] = { "<cmd>w<cr>", "Write" },
+	["<leader>Q"] = { "<cmd>qa!<cr>", "Force Quit" },
+	["<leader>q"] = { "<cmd>Bdelete<cr>", "Delete buffer" },
+	["<leader>qo"] = { "<cmd>Bonly<cr>", "Delete other buffers" },
+	["<leader>hw"] = { "<cmd>HopWord<cr>", "HopWord" },
+	["<leader>hp"] = { "<cmd>HopPattern<cr>", "HopPattern" },
+	["<leader>r"] = { "<cmd>e!<cr>", "Reload file" },
 })

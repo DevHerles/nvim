@@ -39,4 +39,3 @@ set.completeopt = "menuone,noselect"
 
 set.hidden = true
 set.mouse = "a"
-
