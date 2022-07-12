@@ -9,9 +9,9 @@ local diagnostics = null_ls.builtins.diagnostics
 local sources = {
 	formatting.eslint,
 	formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
-	formatting.black.with({ extra_args = { "--fast" } }),
+	-- formatting.black.with({ extra_args = { "--fast" } }),
 	-- formatting.autopep8,
-	-- formatting.yapf,
+	formatting.yapf,
 	formatting.stylua,
 	formatting.clang_format,
 	diagnostics.flake8,
