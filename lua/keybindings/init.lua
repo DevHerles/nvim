@@ -60,6 +60,7 @@ wk.register({
 	["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 	["<leader>fn"] = { "<cmd>enew<cr>", "New File" },
 	["<leader>fb"] = { "<cmd>Telescope buffers<cr>", "Find buffers" },
+	["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "Find grep" },
 	["<leader>e"] = { "<cmd>Ranger<cr>", "Explorer" },
 	["<leader>-"] = { "<cmd>split<cr>", "Vertical split" },
 	["<leader>|"] = { "<cmd>vsplit<cr>", "Horizontal split" },

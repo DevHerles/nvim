@@ -12,11 +12,11 @@ return require("packer").startup(function()
 	-- use("kyazdani42/nvim-tree.lua") --> file explorer
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
-
+	use("xiyaowong/nvim-transparent")
 	use("ziontee113/syntax-tree-surfer")
 
 	use("nvim-lualine/lualine.nvim")
-
+	use("junegunn/limelight.vim")
 	use({
 		"kyazdani42/nvim-tree.lua",
 		requires = {
@@ -36,7 +36,13 @@ return require("packer").startup(function()
 	})
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = {
+			{ "nvim-telescope/telescope-live-grep-args.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+		config = function()
+			require("telescope").load_extension("live_grep_args")
+		end,
 	})
 	use({
 		"francoiscabrol/ranger.vim",
