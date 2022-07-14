@@ -25,6 +25,8 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
+keymap("n", "<C-p>", ":Telescope buffers<CR>", opts)
+
 -- Navigate buffers ------------------------------------------------------------
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
@@ -59,7 +61,6 @@ wk.register({
 	["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
 	["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 	["<leader>fn"] = { "<cmd>enew<cr>", "New File" },
-	["<leader>fb"] = { "<cmd>Telescope buffers<cr>", "Find buffers" },
 	["<leader>fg"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "Find grep" },
 	["<leader>e"] = { "<cmd>Ranger<cr>", "Explorer" },
 	["<leader>-"] = { "<cmd>split<cr>", "Vertical split" },

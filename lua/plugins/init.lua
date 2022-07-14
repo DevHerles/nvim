@@ -16,6 +16,8 @@ return require("packer").startup(function()
 	use("ziontee113/syntax-tree-surfer")
 
 	use("nvim-lualine/lualine.nvim")
+	use("romgrk/barbar.nvim") --> tabs for neovim
+
 	use("junegunn/limelight.vim")
 	use({
 		"kyazdani42/nvim-tree.lua",
@@ -55,7 +57,7 @@ return require("packer").startup(function()
 		"williamboman/nvim-lsp-installer", -- allows us to install language servers
 		"jose-elias-alvarez/null-ls.nvim", -- for formatters and linters
 	})
-
+	use("lukas-reineke/indent-blankline.nvim") --> indent guides for neovim
 	use({
 		"aserowy/tmux.nvim",
 		config = function()
@@ -125,6 +127,7 @@ return require("packer").startup(function()
 
 	-- colorschemes -------------------------------------------------------------
 	use("EdenEast/nightfox.nvim") ----------------- nightfox colorsceme for neovim
-	use("ghifarit53/tokyonight-vim")
+	-- use("ghifarit53/tokyonight-vim")
 	use("tiagovla/tokyodark.nvim")
+	use("folke/tokyonight.nvim")
 end)
